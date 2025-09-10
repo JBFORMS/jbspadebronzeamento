@@ -491,6 +491,17 @@
     </style>
     <!-- Inclui a biblioteca Signature Pad -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
+    <!-- Inclui a biblioteca jsPDF para gerar PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
+    <!-- Inclui a biblioteca EmailJS para envio de emails -->
+    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
+    <script>
+        // Inicializa EmailJS com seu User ID
+        (function() {
+            emailjs.init('user_your_emailjs_userid'); // Substitua pelo seu User ID do EmailJS
+        })();
+    </script>
 </head>
 <body>
     <div class="container" id="formContainer">
@@ -812,16 +823,138 @@
                 // Aqui você pode adicionar mais validações ou enviar o formulário
                 showToast('Formulário enviado com sucesso!', 'success');
                 
-                // Simulação de envio do formulário
-                setTimeout(() => {
-                    // Aqui você pode adicionar o código para enviar o formulário
-                    console.log('Formulário enviado:', {
-                        nome: document.getElementById('nome').value,
-                        // Adicione outros campos conforme necessário
-                        assinatura: document.getElementById('assinaturaData').value
-                    });
-                }, 1500);
+                // Gera e envia o PDF por email
+                generateAndSendPDF();
             });
+
+            // Função para gerar o PDF e enviar por email
+            function generateAndSendPDF() {
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF();
+                
+                // Adiciona logo
+                const logo = new Image();
+                logo.src = 'https://storage.tally.so/cc75fad2-d6a4-406b-8919-422d527cf5c6/logo.jpg';
+                
+                // Adiciona título
+                doc.setFontSize(22);
+                doc.setTextColor(66, 66, 66);
+                doc.text('Ficha de Anamnese - JB Spa de Bronze', 105, 30, { align: 'center' });
+                
+                // Adiciona dados pessoais
+                doc.setFontSize(14);
+                doc.text('Dados Pessoais', 14, 50);
+                doc.setFontSize(12);
+                
+                const personalData = [
+                    ['Nome:', document.getElementById('nome').value],
+                    ['Documento:', document.getElementById('documento').value],
+                    ['Celular:', document.getElementById('celular').value],
+                    ['Email:', document.getElementById('email').value],
+                    ['Data Nascimento:', document.getElementById('nascimento').value],
+                    ['Data Procedimento:', document.getElementById('data').value]
+                ];
+                
+                doc.autoTable({
+                    startY: 55,
+                    head: [['Campo', 'Valor']],
+                    body: personalData,
+                    margin: { left: 14 },
+                    styles: { fontSize: 10 }
+                });
+                
+                // Adiciona endereço
+                doc.setFontSize(14);
+                doc.text('Endereço', 14, doc.autoTable.previous.finalY + 15);
+                doc.setFontSize(12);
+                
+                const addressData = [
+                    ['CEP:', document.getElementById('cep').value],
+                    ['Endereço:', document.getElementById('endereco').value],
+                    ['Complemento:', document.getElementById('complemento').value],
+                    ['Bairro:', document.getElementById('bairro').value],
+                    ['Cidade:', document.getElementById('cidade').value],
+                    ['Estado:', document.getElementById('estado').value]
+                ];
+                
+                doc.autoTable({
+                    startY: doc.autoTable.previous.finalY + 20,
+                    head: [['Campo', 'Valor']],
+                    body: addressData,
+                    margin: { left: 14 },
+                    styles: { fontSize: 10 }
+                });
+                
+                // Adiciona questionário de saúde
+                doc.setFontSize(14);
+                doc.text('Questionário de Saúde', 14, doc.autoTable.previous.finalY + 15);
+                doc.setFontSize(12);
+                
+                const healthQuestions = [
+                    ['Consumiu álcool nas últimas 24h?', getRadioValue('alcool')],
+                    ['Teve uma boa noite de sono?', getRadioValue('sono')],
+                    ['Faz tratamento médico?', getRadioValue('tratamento')],
+                    ['Faz uso de medicamentos?', getRadioValue('medicamento')],
+                    ['Fez tratamento com laser?', getRadioValue('laser')],
+                    ['Tem doença crônica?', getRadioValue('doenca')],
+                    ['Tem alergias?', getRadioValue('alergia')],
+                    ['Suspeita de gestação?', getRadioValue('gestacao')],
+                    ['Fez cirurgia recente?', getRadioValue('cirurgia')],
+                    ['Fez tratamento com ácido?', getRadioValue('acido')],
+                    ['Tem doença de pele?', getRadioValue('pele')],
+                    ['Hipertensão ou diabetes?', getRadioValue('hipertensao')],
+                    ['Tratamento oncológico?', getRadioValue('oncologico')],
+                    ['Possui tatuagens?', getRadioValue('tatuagem')]
+                ];
+                
+                doc.autoTable({
+                    startY: doc.autoTable.previous.finalY + 20,
+                    head: [['Pergunta', 'Resposta']],
+                    body: healthQuestions,
+                    margin: { left: 14 },
+                    styles: { fontSize: 10 }
+                });
+                
+                // Adiciona autorização de imagem
+                doc.setFontSize(14);
+                doc.text('Autorizações', 14, doc.autoTable.previous.finalY + 15);
+                doc.setFontSize(12);
+                doc.text(`Autoriza uso de imagem: ${getRadioValue('imagem')}`, 14, doc.autoTable.previous.finalY + 25);
+                
+                // Adiciona assinatura
+                const signatureData = document.getElementById('assinaturaData').value;
+                if (signatureData) {
+                    const signatureImg = new Image();
+                    signatureImg.src = signatureData;
+                    
+                    doc.addImage(signatureImg, 'PNG', 14, doc.autoTable.previous.finalY + 40, 100, 50);
+                    doc.text('Assinatura Digital:', 14, doc.autoTable.previous.finalY + 35);
+                }
+                
+                // Gera PDF e envia por email
+                const pdfOutput = doc.output('datauristring');
+                
+                const emailParams = {
+                    to_email: 'jbspadebronze@gmail.com',
+                    from_name: 'Formulário JB Spa de Bronze',
+                    subject: 'Nova Ficha de Anamnese - ' + document.getElementById('nome').value,
+                    message: 'Uma nova ficha de anamnese foi preenchida. Verifique o anexo.',
+                    pdf_file: pdfOutput
+                };
+                
+                emailjs.send('default_service', 'template_your_template_id', emailParams)
+                    .then(function(response) {
+                        showToast('Formulário enviado com sucesso!', 'success');
+                        console.log('Email enviado:', response);
+                    }, function(error) {
+                        showToast('Erro ao enviar formulário. Tente novamente.', 'error');
+                        console.log('Erro ao enviar email:', error);
+                    });
+            }
+            
+            function getRadioValue(name) {
+                return document.querySelector(`input[name="${name}"]:checked`)?.value || 'Não informado';
+            }
 
             // Função para mostrar notificações toast
             function showToast(message, type = 'success') {

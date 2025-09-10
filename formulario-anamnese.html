@@ -417,75 +417,112 @@
         }
 
         /* Responsividade */
+        @media (max-width: 1200px) {
+            .container {
+                max-width: 95%;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             body {
-                padding: 15px;
+                padding: 10px;
             }
             .container {
-                margin: 15px auto;
+                margin: 10px auto;
                 border-radius: 15px;
             }
             header {
-                padding: 25px 15px;
-                padding-bottom: 40px; /* Ajusta o padding inferior em mobile */
-            }
-            .logo-image-wrapper {
-                margin-bottom: 10px;
+                padding: 20px 15px;
+                padding-bottom: 35px;
             }
             .logo-img {
-                max-width: 180px; /* Reverte para tamanho menor em mobile */
+                max-width: 160px;
             }
             .header-title {
-                font-size: 32px; /* Título menor em mobile */
-                letter-spacing: 1px;
+                font-size: 28px;
             }
             .header-subtitle {
-                font-size: 18px; /* Subtítulo menor em mobile */
-                letter-spacing: 0.5px;
+                font-size: 16px;
             }
-
             .form-container {
-                padding: 25px;
+                padding: 20px;
             }
             .section-title {
-                font-size: 20px;
+                font-size: 18px;
             }
             .section-title i {
-                width: 35px;
-                height: 35px;
-                font-size: 16px;
+                width: 30px;
+                height: 30px;
+                font-size: 14px;
             }
             .form-grid {
                 grid-template-columns: 1fr;
-                gap: 20px;
+                gap: 15px;
             }
             .radio-group {
                 flex-direction: column;
-                gap: 12px;
+                gap: 10px;
             }
             .btn {
-                width: 100%;
-                font-size: 16px;
-                padding: 14px 25px;
+                font-size: 15px;
+                padding: 12px 20px;
             }
             .consent-box {
-                padding: 20px;
+                padding: 15px;
             }
             .consent-box h3 {
-                font-size: 18px;
-            }
-            .consent-list li {
-                font-size: 14px;
-                padding-left: 25px;
-            }
-            .consent-list li:before {
                 font-size: 16px;
             }
-            .signature-pad-container {
-                height: 120px;
+            .consent-list li {
+                font-size: 13px;
+                padding-left: 20px;
             }
-            .floral-divider {
-                font-size: 22px;
+            .signature-pad-container {
+                height: 100px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 24px;
+            }
+            .header-subtitle {
+                font-size: 14px;
+            }
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
+                padding: 12px;
+                font-size: 14px;
+            }
+            .btn {
+                padding: 10px 15px;
+            }
+            .signature-pad-container {
+                height: 80px;
+            }
+        }
+
+        /* Ajustes para tablets em modo retrato */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+            .form-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .signature-pad-container {
+                height: 140px;
+            }
+        }
+
+        /* Ajustes para tablets em modo paisagem */
+        @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+            .form-grid {
+                grid-template-columns: repeat(3, 1fr);
             }
         }
     </style>
@@ -499,7 +536,7 @@
     <script>
         // Inicializa EmailJS com seu User ID
         (function() {
-            emailjs.init('user_your_emailjs_userid'); // Substitua pelo seu User ID do EmailJS
+            emailjs.init('service_fyzmxh9'); // Service ID do EmailJS
         })();
     </script>
 </head>
@@ -596,7 +633,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Teve uma boa noite de soma?</label>
+                            <label class="required">Teve uma boa noite de sono?</label>
                             <div class="radio-group">
                                 <label class="radio-option"><input type="radio" name="sono" value="Sim" required> Sim</label>
                                 <label class="radio-option"><input type="radio" name="sono" value="Não"> Não</label>
@@ -942,12 +979,16 @@
                     pdf_file: pdfOutput
                 };
                 
-                emailjs.send('default_service', 'template_your_template_id', emailParams)
+                // Salva o PDF localmente primeiro para teste
+                doc.save('ficha_anamnese.pdf');
+                
+                // Envia por email (substitua com seu template ID real)
+                emailjs.send('service_fyzmxh9', 'template_your_template_id', emailParams)
                     .then(function(response) {
-                        showToast('Formulário enviado com sucesso!', 'success');
+                        showToast('Formulário salvo com sucesso! Verifique seu downloads.', 'success');
                         console.log('Email enviado:', response);
                     }, function(error) {
-                        showToast('Erro ao enviar formulário. Tente novamente.', 'error');
+                        showToast('Formulário salvo localmente. O envio por email falhou.', 'error');
                         console.log('Erro ao enviar email:', error);
                     });
             }
@@ -966,11 +1007,19 @@
                     toast.classList.add('error');
                 }
                 
+                // Posicionamento diferente para mobile
+                if (window.innerWidth <= 768) {
+                    toast.style.bottom = '70px';
+                    toast.style.right = '10px';
+                    toast.style.left = '10px';
+                    toast.style.width = 'auto';
+                }
+                
                 toast.classList.add('show');
                 
                 setTimeout(() => {
                     toast.classList.remove('show');
-                }, 5000);
+                }, window.innerWidth <= 768 ? 3000 : 5000);
             }
         });
     </script>

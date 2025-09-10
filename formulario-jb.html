@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha de Anamnese - JB Spa de Bronze</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Paleta de cores refinada para harmonizar com a logo */
+            --primary: #D4AF37; /* Dourado principal */
+            --secondary: #C19A6B; /* Bronze */
+            --accent: #8B7355; /* Marrom médio para contraste */
+            --light-bg: #FDF5E6; /* Creme suave para fundo */
+            --light-pink: #FFEFE8; /* Rosa muito suave */
+            --dark-text: #5D4037; /* Marrom escuro para texto */
+            --border-color: #E6D8B6; /* Bege dourado para bordas */
+            --success: #8BC34A; /* Verde para confirmações */
+            --error: #F44336; /* Vermelho para erros */
+            --shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-bg) 0%, var(--light-pink) 100%);
+            color: var(--dark-text);
+            line-height: 1.6;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+        }
+
+        header {
+            background-color: black; /* Fundo preto conforme a logo */
+            color: white;
+            padding: 30px 25px;
+            text-align: center;
+            position: relative;
+            border-bottom: 5px solid var(--accent); /* Mantém o acento dourado na parte inferior */
+            padding-bottom: 50px; /* Espaço inferior do cabeçalho */
+        }
+
+        /* Novo wrapper para a imagem para centralização e espaçamento */
+        .logo-image-wrapper {
+            margin-bottom: 15px; /* Espaço entre a imagem e o título */
+            display: flex;
+            justify-content: center; /* Centraliza a imagem */
+            align-items: center;
+        }
+
+        .logo-img {
+            max-width: 220px; /* Aumenta um pouco o tamanho da logo para destaque */
+            height: auto;
+            filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.4)); /* Sombra mais forte para a logo */
+        }
+
+        /* Estilos removidos/ignorados do .logo-text original, pois agora temos novas classes */
+        /* .logo-text, .logo-text .title, .logo-text .subtitle não são mais usados nesta nova estrutura */
+
+        /* Novos estilos para o título e subtítulo do cabeçalho */
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 42px; /* Título maior e mais proeminente */
+            font-weight: 700;
+            margin-bottom: 8px; /* Espaço entre título e subtítulo */
+            text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+            letter-spacing: 1.5px;
+            color: white; /* Garante que o texto seja branco */
+        }
+
+        .header-subtitle {
+            font-size: 22px; /* Subtítulo um pouco maior */
+            opacity: 0.98;
+            font-style: italic;
+            letter-spacing: 0.7px;
+            color: white; /* Garante que o texto seja branco */
+            margin-top: 0;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-container {
+            padding: 40px;
+        }
+
+        .form-section {
+            margin-bottom: 35px;
+            padding-bottom: 30px;
+            border-bottom: 1px dashed var(--border-color);
+        }
+
+        .form-section:last-of-type {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            color: var(--dark-text);
+            margin-bottom: 25px;
+            font-size: 22px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--primary);
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+        }
+
+        .section-title i {
+            margin-right: 15px;
+            background: var(--primary);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: 600;
+            color: var(--dark-text);
+            font-size: 15px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            background-color: var(--light-bg);
+            color: var(--dark-text);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
+            background-color: white;
+        }
+
+        .radio-group {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"] {
+            /* Reset default browser styles */
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--primary);
+            border-radius: 50%;
+            outline: none;
+            cursor: pointer;
+            transition: background-color 0.2s, border-color 0.2s;
+            position: relative;
+            background-color: white;
+            flex-shrink: 0; /* Prevents shrinking on smaller screens */
+        }
+
+        .radio-option input[type="radio"]:checked {
+            background-color: var(--primary);
+            border-color: var(--primary);
+        }
+
+        .radio-option input[type="radio"]:checked::before {
+            content: '';
+            display: block;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .required::after {
+            content: " *";
+            color: var(--error);
+            margin-left: 2px;
+        }
+
+        .btn {
+            padding: 16px 35px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-top: 30px;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            width: 100%;
+            box-shadow: 0 6px 20px rgba(193, 154, 107, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px rgba(193, 154, 107, 0.5);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .consent-box {
+            background-color: var(--light-bg);
+            border-left: 6px solid var(--primary);
+            padding: 25px;
+            margin: 25px 0;
+            border-radius: 12px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
+        }
+
+        .consent-box h3 {
+            color: var(--dark-text);
+            margin-bottom: 18px;
+            font-family: 'Playfair Display', serif;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .consent-list {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .consent-list li {
+            margin-bottom: 14px;
+            padding-left: 30px;
+            position: relative;
+            font-size: 15px;
+            color: #6C5E4E;
+        }
+
+        .consent-list li:before {
+            content: "\f00c"; /* Checkmark icon */
+            font-family: "Font Awesome 5 Free"; /* Ensure this font-family is loaded */
+            font-weight: 900;
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+            font-size: 18px;
+            top: 2px;
+        }
+
+        .signature-pad {
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            height: 160px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #fcfcfc;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--dark-text);
+            font-style: italic;
+            text-align: center; /* Center the text inside the pad */
+            padding: 10px; /* Add some padding */
+        }
+
+        .signature-pad:hover {
+            background-color: #f5f5f5;
+            border-color: var(--primary);
+        }
+
+        .signature-pad.signed {
+            background-color: #e8f5e9;
+            border-color: var(--success);
+            font-style: normal;
+        }
+
+        .floral-divider {
+            text-align: center;
+            margin: 30px 0;
+            color: var(--primary);
+            font-size: 28px;
+            letter-spacing: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            background: var(--light-bg);
+            color: var(--dark-text);
+            font-size: 15px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 15px 25px;
+            background: var(--success);
+            color: white;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out; /* Add ease-in-out for smoother animation */
+            z-index: 1000;
+        }
+
+        .toast.show {
+            opacity: 1;
+        }
+
+        .toast.error {
+            background: var(--error);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                margin: 15px auto;
+                border-radius: 15px;
+            }
+            header {
+                padding: 25px 15px;
+                padding-bottom: 40px; /* Ajusta o padding inferior em mobile */
+            }
+            .logo-image-wrapper {
+                margin-bottom: 10px;
+            }
+            .logo-img {
+                max-width: 180px; /* Reverte para tamanho menor em mobile */
+            }
+            .header-title {
+                font-size: 32px; /* Título menor em mobile */
+                letter-spacing: 1px;
+            }
+            .header-subtitle {
+                font-size: 18px; /* Subtítulo menor em mobile */
+                letter-spacing: 0.5px;
+            }
+
+            .form-container {
+                padding: 25px;
+            }
+            .section-title {
+                font-size: 20px;
+            }
+            .section-title i {
+                width: 35px;
+                height: 35px;
+                font-size: 16px;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            .radio-group {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .btn {
+                width: 100%;
+                font-size: 16px;
+                padding: 14px 25px;
+            }
+            .consent-box {
+                padding: 20px;
+            }
+            .consent-box h3 {
+                font-size: 18px;
+            }
+            .consent-list li {
+                font-size: 14px;
+                padding-left: 25px;
+            }
+            .consent-list li:before {
+                font-size: 16px;
+            }
+            .signature-pad {
+                height: 120px;
+                font-size: 14px;
+            }
+            .floral-divider {
+                font-size: 22px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="formContainer">
+        <header>
+            <div class="logo-image-wrapper">
+                <img src="https://storage.tally.so/cc75fad2-d6a4-406b-8919-422d527cf5c6/logo.jpg" alt="JB Spa de Bronze Logo" class="logo-img">
+            </div>
+            <h1 class="header-title">JB SPA DE BRONZE</h1>
+            <p class="header-subtitle">Beleza, cuidado e elegância para sua pele</p>
+        </header>
+
+        <div class="form-container">
+            <form id="bronzeForm">
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-user-alt"></i>
+                        <span>Dados Pessoais</span>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="nome" class="required">Nome completo</label>
+                            <input type="text" id="nome" name="nome" required placeholder="Digite seu nome completo">
+                        </div>
+                        <div class="form-group">
+                            <label for="documento" class="required">Documento (CPF ou RG)</label>
+                            <input type="text" id="documento" name="documento" required placeholder="Digite seu CPF ou RG">
+                        </div>
+                        <div class="form-group">
+                            <label for="celular" class="required">Celular</label>
+                            <input type="tel" id="celular" name="celular" required placeholder="(00) 00000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="required">E-mail</label>
+                            <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="data" class="required">Data do procedimento</label>
+                            <input type="date" id="data" name="data" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nascimento" class="required">Data de Nascimento</label>
+                            <input type="date" id="nascimento" name="nascimento" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Endereço</span>
+                    </div>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="cep">CEP (opcional)</label>
+                            <input type="text" id="cep" name="cep" placeholder="00000-000">
+                        </div>
+                        <div class="form-group">
+                            <label for="endereco" class="required">Rua e Número</label>
+                            <input type="text" id="endereco" name="endereco" required placeholder="Rua, número">
+                        </div>
+                        <div class="form-group">
+                            <label for="complemento">Complemento (apto, bloco)</label>
+                            <input type="text" id="complemento" name="complemento" placeholder="Apto, bloco">
+                        </div>
+                        <div class="form-group">
+                            <label for="bairro" class="required">Bairro</label>
+                            <input type="text" id="bairro" name="bairro" required placeholder="Digite seu bairro">
+                        </div>
+                        <div class="form-group">
+                            <label for="cidade" class="required">Cidade</label>
+                            <input type="text" id="cidade" name="cidade" required placeholder="Digite sua cidade">
+                        </div>
+                        <div class="form-group">
+                            <label for="estado" class="required">Estado</label>
+                            <input type="text" id="estado" name="estado" required placeholder="Digite seu estado (ex: SP)">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-notes-medical"></i>
+                        <span>Questionário de Saúde</span>
+                    </div>
+
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="required">Consumiu bebida alcoólica nas últimas 24h?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="alcool" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="alcool" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Teve uma boa noite de sono?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="sono" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="sono" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Faz algum tratamento médico?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="tratamento" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="tratamento" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Faz uso de algum medicamento?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="medicamento" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="medicamento" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Fez tratamento estético com laser nos últimos 3 meses?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="laser" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="laser" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Tem alguma doença crônica ou síndrome?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="doenca" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="doenca" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Tem histórico de alergia?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="alergia" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="alergia" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Suspeita de gestação?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="gestacao" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="gestacao" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Fez alguma cirurgia nos últimos 12 meses?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="cirurgia" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="cirurgia" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Fez tratamento estético com ácido nos últimos 3 meses?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="acido" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="acido" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Tem alguma doença de pele?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="pele" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="pele" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Possui hipertensão ou diabetes?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="hipertensao" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="hipertensao" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Já fez ou faz algum tratamento oncológico?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="oncologico" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="oncologico" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Possui tatuagens ou micropigmentação na área a ser bronzeada?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="tatuagem" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="tatuagem" value="Não"> Não</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-file-signature"></i>
+                        <span>Termos e Consentimento</span>
+                    </div>
+
+                    <div class="consent-box">
+                        <h3>Declaração de Ciência e Consentimento</h3>
+                        <ul class="consent-list">
+                            <li>Veracidade das Informações: Declaro que todas as informações fornecidas por mim neste formulário são verdadeiras e completas.</li>
+                            <li>Ciência e Riscos: Fui devidamente informada sobre os benefícios, riscos, indicações e contra indicações do procedimento de bronzeamento, incluindo possíveis reações alérgicas ou irritações cutâneas.</li>
+                            <li>Orientações Importantes: Fui alertada sobre a importância de não utilizar o aparelho celular durante a sessão e respeitar rigorosamente o tempo de exposição estipulado pela profissional. Comprometo-me a seguir as orientações de pré e pós-procedimento.</li>
+                            <li>Autorização: Autorizo a profissional Brenda Gama, do espaço JB SPA DE BRONZE, a realizar o procedimento de bronzeamento.</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Você autoriza o uso de sua imagem (fotos/vídeos) e depoimentos para fins de marketing e divulgação do espaço JB SPA DE BRONZE em redes sociais e outros meios de comunicação?</label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="imagem" value="Sim" required> Sim</label>
+                            <label class="radio-option"><input type="radio" name="imagem" value="Não"> Não</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="assinaturaPad" class="required">Assinatura Digital (Clique para registrar)</label>
+                        <div class="signature-pad" id="assinaturaPad">
+                            <span>Clique aqui para registrar sua assinatura</span>
+                        </div>
+                        <input type="hidden" id="assinaturaData" name="assinaturaData" required> <!-- Campo oculto para guardar o status da assinatura -->
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-paper-plane"></i> Enviar Ficha de Anamnese
+                </button>
+            </form>
+        </div>
+
+        <footer>
+            <p>JB SPA DE BRONZE &copy; 2023 - Todos os direitos reservados</p>
+        </footer>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        // Formatação de Celular
+        document.getElementById('celular').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 10) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/(\d{2})(\d+)/, '($1) $2');
+            }
+            e.target.value = value;
+        });
+
+        // Formatação de CPF/RG
+        document.getElementById('documento').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            
+            // Aceita CPF (11 dígitos) ou RG (até 9 dígitos, pode variar por estado)
+            // Limitamos a 11 para evitar formatos muito longos e sugerir CPF.
+            // Se precisar de RG mais longo, ajuste o limite.
+            if (value.length > 11) value = value.slice(0, 11);
+            
+            if (value.length <= 11 && value.length >= 9) { // Tentativa de formatar como CPF
+                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
+            } else if (value.length > 6) { // RG parcial ou números soltos
+                value = value.replace(/(\d{2})(\d{3})(\d{3})/, '$1.$2.$3');
+            } else if (value.length > 3) {
+                value = value.replace(/(\d{3})(\d+)/, '$1.$2');
+            }
+            // Para RG, muitas vezes não há um padrão fixo de pontuação,
+            // então uma formatação mais simples ou nenhuma pode ser preferível.
+            // Para CPF, a máscara é mais consistente.
+            e.target.value = value;
+        });
+
+        // Formatação de CEP
+        document.getElementById('cep').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 8) value = value.slice(0, 8);
+
+            if (value.length > 5) {
+                value = value.replace(/(\d{5})(\d+)/, '$1-$2');
+            }
+            e.target.value = value;
+        });
+
+        // Simulação de assinatura
+        const assinaturaPad = document.getElementById('assinaturaPad');
+        const assinaturaDataInput = document.getElementById('assinaturaData');
+
+        assinaturaPad.addEventListener('click', function() {
+            const timestamp = new Date().toLocaleString('pt-BR');
+            this.innerHTML = `<span>Assinatura registrada eletronicamente em ${timestamp}</span>`;
+            this.classList.add('signed');
+            assinaturaDataInput.value = `Assinado em ${timestamp}`; // Salva o status no campo oculto
+        });
+
+        // Definir data atual como padrão para o campo de data
+        document.getElementById('data').valueAsDate = new Date();
+
+        // Mostrar toast de notificação
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.className = isError ? 'toast error show' : 'toast show';
+            
+            setTimeout(() => {
+                toast.className = 'toast';
+            }, 3000);
+        }
+
+        // Salvar dados localmente para evitar perda (continuação do script original)
+        function saveFormData() {
+            const formData = {};
+            const inputs = document.querySelectorAll('#bronzeForm input, #bronzeForm select, #bronzeForm textarea');
+            inputs.forEach(input => {
+                if (input.type === 'radio') {
+                    if (input.checked) {
+                        formData[input.name] = input.value;
+                    }
+                } else if (input.type === 'checkbox') {
+                    formData[input.name] = input.checked;
+                } else {
+                    formData[input.name] = input.value;
+                }
+            });
+            localStorage.setItem('bronzeFormDraft', JSON.stringify(formData));
+        }
+
+        // Carregar dados localmente ao iniciar
+        function loadFormData() {
+            const savedData = localStorage.getItem('bronzeFormDraft');
+            if (savedData) {
+                const formData = JSON.parse(savedData);
+                for (const name in formData) {
+                    const input = document.querySelector(`#bronzeForm [name="${name}"]`);
+                    if (input) {
+                        if (input.type === 'radio') {
+                            const radioOption = document.querySelector(`#bronzeForm [name="${name}"][value="${formData[name]}"]`);
+                            if (radioOption) radioOption.checked = true;
+                        } else if (input.type === 'checkbox') {
+                            input.checked = formData[name];
+                        } else {
+                            input.value = formData[name];
+                        }
+                    }
+                }
+            }
+        }
+
+        // Event Listeners para salvar/carregar
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFormData();
+            document.getElementById('bronzeForm').addEventListener('input', saveFormData);
+        }

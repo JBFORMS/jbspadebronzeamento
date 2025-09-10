@@ -1,0 +1,419 @@
+/* Variáveis CSS para cores e tamanhos */
+:root {
+    --primary-color: #007bff;
+    --secondary-color: #6c757d;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --warning-color: #ffc107;
+    --info-color: #17a2b8;
+    --light-bg: #f8f9fa;
+    --dark-bg: #343a40;
+    --text-color: #333;
+    --light-text: #fff;
+    --border-color: #dee2e6;
+    --card-bg: #ffffff;
+    --shadow: rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+    --padding-base: 15px;
+    --margin-base: 10px;
+}
+
+/* Estilos Globais */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    background-color: var(--light-bg);
+    color: var(--text-color);
+    line-height: 1.6;
+    display: flex; /* Para centralizar o login */
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden; /* Evita rolagem horizontal */
+}
+
+/* Botões base */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none; /* Para links que agem como botões */
+    color: var(--light-text);
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.btn-secondary {
+    background-color: var(--secondary-color);
+}
+
+.btn-secondary:hover {
+    background-color: #5a6268;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+/* --- Estilos da Tela de Login --- */
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(to right, var(--primary-color), #00aaff); /* Gradiente de fundo */
+}
+
+.login-box {
+    background-color: var(--card-bg);
+    padding: 40px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 25px var(--shadow);
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+}
+
+.login-logo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 25px;
+    border: 3px solid var(--primary-color);
+}
+
+.login-box h2 {
+    color: var(--primary-color);
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
+
+.login-box p {
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+
+.input-group {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--secondary-color);
+    font-size: 1.1rem;
+}
+
+.input-group input {
+    width: calc(100% - 30px); /* Ajusta a largura considerando o padding e o ícone */
+    padding: 12px 12px 12px 45px; /* Mais padding à esquerda para o ícone */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-group input:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.btn-login {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px var(--shadow);
+}
+
+.error-message {
+    color: var(--danger-color);
+    margin-top: var(--margin-base);
+    font-size: 0.9rem;
+    display: none; /* Escondido por padrão */
+}
+
+
+/* --- Estilos do Painel Administrativo --- */
+.admin-panel-container {
+    display: none; /* Escondido por padrão */
+    width: 100%;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: var(--light-bg);
+}
+
+.header {
+    background-color: var(--card-bg);
+    color: var(--text-color);
+    padding: var(--padding-base) 30px;
+    box-shadow: 0 2px 10px var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap; /* Permite que os itens quebrem linha em telas menores */
+    gap: var(--margin-base); /* Espaço entre os itens do cabeçalho */
+}
+
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.header-logo {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: var(--margin-base);
+    object-fit: cover;
+    border: 2px solid var(--primary-color);
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: var(--dark-bg);
+}
+
+.header-nav {
+    display: flex;
+    gap: var(--margin-base);
+    flex-wrap: wrap;
+}
+
+.main-content {
+    padding: 30px;
+    flex-grow: 1; /* Ocupa o espaço restante */
+}
+
+.forms-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.form-card {
+    background-color: var(--card-bg);
+    border-radius: var(--border-radius);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--border-color);
+}
+
+.form-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadow);
+}
+
+.form-card-header {
+    background-color: var(--primary-color);
+    color: var(--light-text);
+    padding: var(--padding-base);
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.form-card-header h3 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
+.form-card-body {
+    padding: var(--padding-base);
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Permite que o corpo ocupe o espaço */
+}
+
+.form-card-desc {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: var(--margin-base);
+    flex-grow: 1; /* Permite que a descrição ocupe mais espaço */
+}
+
+.form-card-body p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+/* --- Estilos do Modal --- */
+.modal {
+    display: none; /* Escondido por padrão */
+    position: fixed; /* Fixo na tela */
+    z-index: 1000; /* Acima de todo o resto */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Adiciona scroll se o conteúdo for muito grande */
+    background-color: rgba(0, 0, 0, 0.6); /* Fundo semi-transparente */
+    justify-content: center;
+    align-items: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: 0 10px 30px var(--shadow);
+    width: 90%;
+    max-width: 500px;
+    position: relative;
+    animation: slideIn 0.3s ease-out;
+}
+
+.close-button {
+    color: var(--secondary-color);
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--danger-color);
+}
+
+.modal-content h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.modal-content .input-group {
+    margin-bottom: 20px;
+}
+
+.modal-content label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #444;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="url"],
+.modal-content textarea {
+    width: calc(100% - 20px);
+    padding: 12px 10px;
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    resize: vertical; /* Permite redimensionar verticalmente textareas */
+    min-height: 50px;
+}
+
+.modal-content textarea {
+    min-height: 80px;
+}
+
+.modal-content input:focus,
+.modal-content textarea:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.modal-content .btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Animações */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .header-nav {
+        width: 100%;
+        justify-content: flex-start;
+        margin-top: var(--margin-base);
+    }
+    .main-content {
+        padding: 20px;
+    }
+    .forms-grid {
+        grid-template-columns: 1fr; /* Uma coluna em telas pequenas */
+    }
+    .login-box {
+        margin: 20px;
+        padding: 30px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header h1 {
+        font-size: 1.3rem;
+    }
+    .btn {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+    .login-box {
+        padding: 25px;
+    }
+    .login-box h2 {
+        font-size: 1.5rem;
+    }
+}

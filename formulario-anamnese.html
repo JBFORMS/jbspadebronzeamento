@@ -20,7 +20,6 @@
             --error: #F44336; /* Vermelho para erros */
             --shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
         }
-
         * {
             margin: 0;
             padding: 0;
@@ -307,33 +306,76 @@
             top: 2px;
         }
 
-        .signature-pad {
-            border: 2px dashed var(--border-color);
-            border-radius: 10px;
-            height: 160px;
+        /* --- Estilos para o Signature Pad --- */
+        .signature-pad-wrapper {
+            position: relative; /* Para posicionar o botão de limpar */
             margin-top: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: #fcfcfc;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            color: var(--dark-text);
-            font-style: italic;
-            text-align: center; /* Center the text inside the pad */
-            padding: 10px; /* Add some padding */
         }
 
-        .signature-pad:hover {
-            background-color: #f5f5f5;
+        .signature-pad-container {
+            border: 2px dashed var(--border-color);
+            border-radius: 10px;
+            height: 160px; /* Altura fixa para a área de assinatura */
+            background-color: #fcfcfc;
+            transition: all 0.3s ease;
+            position: relative; /* Para posicionar o canvas e o placeholder */
+            overflow: hidden; /* Garante que o desenho não transborde */
+            display: flex; /* Para centralizar o placeholder */
+            align-items: center; /* Para centralizar o placeholder */
+            justify-content: center; /* Para centralizar o placeholder */
+        }
+
+        .signature-pad-container canvas {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 100%; /* Ocupa a largura total do container */
+            height: 100%; /* Ocupa a altura total do container */
+            touch-action: none; /* Previne o scroll da página ao assinar no touch */
+            background-color: transparent; /* Para o background do container aparecer */
+        }
+
+        .signature-pad-container .placeholder-text {
+            color: var(--dark-text);
+            font-style: italic;
+            text-align: center;
+            padding: 10px;
+            position: absolute; /* Para ficar por cima do canvas vazio */
+            z-index: 1; /* Garante que o texto aparece acima do canvas */
+            pointer-events: none; /* Permite clicar no canvas por baixo */
+            transition: opacity 0.3s ease;
+        }
+
+        .signature-pad-container.has-signature .placeholder-text {
+            opacity: 0; /* Esconde o texto quando há assinatura */
+            visibility: hidden; /* Remove do fluxo para não interferir em leitores de tela */
+        }
+
+        .signature-pad-container:hover {
             border-color: var(--primary);
         }
 
-        .signature-pad.signed {
-            background-color: #e8f5e9;
-            border-color: var(--success);
-            font-style: normal;
+        /* Estilos para o botão de limpar assinatura */
+        .clear-signature-btn {
+            background-color: #f44336; /* Vermelho para limpar */
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 8px 12px;
+            font-size: 14px;
+            cursor: pointer;
+            margin-top: 10px;
+            display: block;
+            width: fit-content;
+            margin-left: auto; /* Alinha à direita */
+            margin-right: auto; /* Alinha à esquerda, ou 'auto' para centralizar se não houver float */
+            transition: background-color 0.3s ease;
         }
+
+        .clear-signature-btn:hover {
+            background-color: #d32f2f;
+        }
+        /* --- Fim dos Estilos para o Signature Pad --- */
 
         .floral-divider {
             text-align: center;
@@ -439,15 +481,16 @@
             .consent-list li:before {
                 font-size: 16px;
             }
-            .signature-pad {
+            .signature-pad-container {
                 height: 120px;
-                font-size: 14px;
             }
             .floral-divider {
                 font-size: 22px;
             }
         }
     </style>
+    <!-- Inclui a biblioteca Signature Pad -->
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
 </head>
 <body>
     <div class="container" id="formContainer">
@@ -542,7 +585,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Teve uma boa noite de sono?</label>
+                            <label class="required">Teve uma boa noite de soma?</label>
                             <div class="radio-group">
                                 <label class="radio-option"><input type="radio" name="sono" value="Sim" required> Sim</label>
                                 <label class="radio-option"><input type="radio" name="sono" value="Não"> Não</label>
@@ -660,11 +703,16 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="assinaturaPad" class="required">Assinatura Digital (Clique para registrar)</label>
-                        <div class="signature-pad" id="assinaturaPad">
-                            <span>Clique aqui para registrar sua assinatura</span>
+                        <label for="signatureCanvas" class="required">Assinatura Digital (Desenhe sua assinatura abaixo)</label>
+                        <div class="signature-pad-wrapper">
+                            <div class="signature-pad-container" id="signaturePadContainer">
+                                <canvas id="signatureCanvas"></canvas>
+                                <span class="placeholder-text">Desenhe sua assinatura aqui</span>
+                            </div>
+                            <button type="button" id="clearSignature" class="clear-signature-btn">Limpar Assinatura</button>
                         </div>
-                        <input type="hidden" id="assinaturaData" name="assinaturaData" required> <!-- Campo oculto para guardar o status da assinatura -->
+                        <!-- Campo oculto para guardar a imagem da assinatura em base64 -->
+                        <input type="hidden" id="assinaturaData" name="assinaturaData" required>
                     </div>
                 </div>
 
@@ -697,105 +745,101 @@
             e.target.value = value;
         });
 
-        // Formatação de CPF/RG
-        document.getElementById('documento').addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            
-            // Aceita CPF (11 dígitos) ou RG (até 9 dígitos, pode variar por estado)
-            // Limitamos a 11 para evitar formatos muito longos e sugerir CPF.
-            // Se precisar de RG mais longo, ajuste o limite.
-            if (value.length > 11) value = value.slice(0, 11);
-            
-            if (value.length <= 11 && value.length >= 9) { // Tentativa de formatar como CPF
-                value = value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, '$1.$2.$3-$4');
-            } else if (value.length > 6) { // RG parcial ou números soltos
-                value = value.replace(/(\d{2})(\d{3})(\d{3})/, '$1.$2.$3');
-            } else if (value.length > 3) {
-                value = value.replace(/(\d{3})(\d+)/, '$1.$2');
-            }
-            // Para RG, muitas vezes não há um padrão fixo de pontuação,
-            // então uma formatação mais simples ou nenhuma pode ser preferível.
-            // Para CPF, a máscara é mais consistente.
-            e.target.value = value;
-        });
-
         // Formatação de CEP
         document.getElementById('cep').addEventListener('input', function(e) {
             let value = e.target.value.replace(/\D/g, '');
             if (value.length > 8) value = value.slice(0, 8);
-
+            
             if (value.length > 5) {
-                value = value.replace(/(\d{5})(\d+)/, '$1-$2');
+                value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
             }
             e.target.value = value;
         });
 
-        // Simulação de assinatura
-        const assinaturaPad = document.getElementById('assinaturaPad');
-        const assinaturaDataInput = document.getElementById('assinaturaData');
-
-        assinaturaPad.addEventListener('click', function() {
-            const timestamp = new Date().toLocaleString('pt-BR');
-            this.innerHTML = `<span>Assinatura registrada eletronicamente em ${timestamp}</span>`;
-            this.classList.add('signed');
-            assinaturaDataInput.value = `Assinado em ${timestamp}`; // Salva o status no campo oculto
-        });
-
-        // Definir data atual como padrão para o campo de data
-        document.getElementById('data').valueAsDate = new Date();
-
-        // Mostrar toast de notificação
-        function showToast(message, isError = false) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = isError ? 'toast error show' : 'toast show';
-            
-            setTimeout(() => {
-                toast.className = 'toast';
-            }, 3000);
-        }
-
-        // Salvar dados localmente para evitar perda (continuação do script original)
-        function saveFormData() {
-            const formData = {};
-            const inputs = document.querySelectorAll('#bronzeForm input, #bronzeForm select, #bronzeForm textarea');
-            inputs.forEach(input => {
-                if (input.type === 'radio') {
-                    if (input.checked) {
-                        formData[input.name] = input.value;
-                    }
-                } else if (input.type === 'checkbox') {
-                    formData[input.name] = input.checked;
-                } else {
-                    formData[input.name] = input.value;
-                }
+        // Inicialização do Signature Pad
+        document.addEventListener('DOMContentLoaded', function() {
+            const canvas = document.getElementById('signatureCanvas');
+            const signaturePad = new SignaturePad(canvas, {
+                backgroundColor: 'rgba(255, 255, 255, 0)',
+                penColor: '#5D4037',
+                minWidth: 1,
+                maxWidth: 3,
+                throttle: 16
             });
-            localStorage.setItem('bronzeFormDraft', JSON.stringify(formData));
-        }
 
-        // Carregar dados localmente ao iniciar
-        function loadFormData() {
-            const savedData = localStorage.getItem('bronzeFormDraft');
-            if (savedData) {
-                const formData = JSON.parse(savedData);
-                for (const name in formData) {
-                    const input = document.querySelector(`#bronzeForm [name="${name}"]`);
-                    if (input) {
-                        if (input.type === 'radio') {
-                            const radioOption = document.querySelector(`#bronzeForm [name="${name}"][value="${formData[name]}"]`);
-                            if (radioOption) radioOption.checked = true;
-                        } else if (input.type === 'checkbox') {
-                            input.checked = formData[name];
-                        } else {
-                            input.value = formData[name];
-                        }
-                    }
+            // Ajusta o canvas para ficar com alta resolução em telas retina
+            function resizeCanvas() {
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext('2d').scale(ratio, ratio);
+                signaturePad.clear(); // Limpa a assinatura após redimensionar
+            }
+            
+            // Redimensiona o canvas quando a janela é redimensionada
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            // Botão para limpar a assinatura
+            document.getElementById('clearSignature').addEventListener('click', function() {
+                signaturePad.clear();
+                document.getElementById('assinaturaData').value = '';
+                document.getElementById('signaturePadContainer').classList.remove('has-signature');
+            });
+
+            // Atualiza o campo hidden com a assinatura em base64 quando o usuário assina
+            canvas.addEventListener('mouseup', updateSignatureData);
+            canvas.addEventListener('touchend', updateSignatureData);
+
+            function updateSignatureData() {
+                if (!signaturePad.isEmpty()) {
+                    const signatureData = signaturePad.toDataURL('image/png');
+                    document.getElementById('assinaturaData').value = signatureData;
+                    document.getElementById('signaturePadContainer').classList.add('has-signature');
                 }
             }
-        }
 
-        // Event Listeners para salvar/carregar
-        document.addEventListener('DOMContentLoaded', () => {
-            loadFormData();
-            document.getElementById('bronzeForm').addEventListener('input', saveFormData);
-        }
+            // Validação do formulário
+            document.getElementById('bronzeForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Verifica se há uma assinatura
+                if (signaturePad.isEmpty()) {
+                    showToast('Por favor, forneça sua assinatura digital', 'error');
+                    return;
+                }
+                
+                // Aqui você pode adicionar mais validações ou enviar o formulário
+                showToast('Formulário enviado com sucesso!', 'success');
+                
+                // Simulação de envio do formulário
+                setTimeout(() => {
+                    // Aqui você pode adicionar o código para enviar o formulário
+                    console.log('Formulário enviado:', {
+                        nome: document.getElementById('nome').value,
+                        // Adicione outros campos conforme necessário
+                        assinatura: document.getElementById('assinaturaData').value
+                    });
+                }, 1500);
+            });
+
+            // Função para mostrar notificações toast
+            function showToast(message, type = 'success') {
+                const toast = document.getElementById('toast');
+                toast.textContent = message;
+                toast.className = 'toast';
+                
+                if (type === 'error') {
+                    toast.classList.add('error');
+                }
+                
+                toast.classList.add('show');
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 5000);
+            }
+        });
+    </script>
+</body>
+</html>

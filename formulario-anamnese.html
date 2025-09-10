@@ -7,17 +7,17 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* Estilos CSS, o mesmo do código anterior, sem alterações */
         :root {
-            /* Paleta de cores refinada para harmonizar com a logo */
-            --primary: #D4AF37; /* Dourado principal */
-            --secondary: #C19A6B; /* Bronze */
-            --accent: #8B7355; /* Marrom médio para contraste */
-            --light-bg: #FDF5E6; /* Creme suave para fundo */
-            --light-pink: #FFEFE8; /* Rosa muito suave */
-            --dark-text: #5D4037; /* Marrom escuro para texto */
-            --border-color: #E6D8B6; /* Bege dourado para bordas */
-            --success: #8BC34A; /* Verde para confirmações */
-            --error: #F44336; /* Vermelho para erros */
+            --primary: #D4AF37;
+            --secondary: #C19A6B;
+            --accent: #8B7355;
+            --light-bg: #FDF5E6;
+            --light-pink: #FFEFE8;
+            --dark-text: #5D4037;
+            --border-color: #E6D8B6;
+            --success: #8BC34A;
+            --error: #F44336;
             --shadow: 0 8px 25px rgba(139, 69, 19, 0.15);
         }
         * {
@@ -26,7 +26,6 @@
             box-sizing: border-box;
             font-family: 'Montserrat', sans-serif;
         }
-
         body {
             background: linear-gradient(135deg, var(--light-bg) 0%, var(--light-pink) 100%);
             color: var(--dark-text);
@@ -34,7 +33,6 @@
             padding: 20px;
             min-height: 100vh;
         }
-
         .container {
             max-width: 900px;
             margin: 20px auto;
@@ -44,71 +42,57 @@
             overflow: hidden;
             border: 1px solid var(--border-color);
         }
-
         header {
-            background-color: black; /* Fundo preto conforme a logo */
+            background-color: black;
             color: white;
             padding: 30px 25px;
             text-align: center;
             position: relative;
-            border-bottom: 5px solid var(--accent); /* Mantém o acento dourado na parte inferior */
-            padding-bottom: 50px; /* Espaço inferior do cabeçalho */
+            border-bottom: 5px solid var(--accent);
+            padding-bottom: 50px;
         }
-
-        /* Novo wrapper para a imagem para centralização e espaçamento */
         .logo-image-wrapper {
-            margin-bottom: 15px; /* Espaço entre a imagem e o título */
+            margin-bottom: 15px;
             display: flex;
-            justify-content: center; /* Centraliza a imagem */
+            justify-content: center;
             align-items: center;
         }
-
         .logo-img {
-            max-width: 220px; /* Aumenta um pouco o tamanho da logo para destaque */
+            max-width: 220px;
             height: auto;
-            filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.4)); /* Sombra mais forte para a logo */
+            filter: drop-shadow(2px 2px 8px rgba(0,0,0,0.4));
         }
-
-        /* Estilos removidos/ignorados do .logo-text original, pois agora temos novas classes */
-        /* .logo-text, .logo-text .title, .logo-text .subtitle não são mais usados nesta nova estrutura */
-
-        /* Novos estilos para o título e subtítulo do cabeçalho */
         .header-title {
             font-family: 'Playfair Display', serif;
-            font-size: 42px; /* Título maior e mais proeminente */
+            font-size: 42px;
             font-weight: 700;
-            margin-bottom: 8px; /* Espaço entre título e subtítulo */
+            margin-bottom: 8px;
             text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
             letter-spacing: 1.5px;
-            color: white; /* Garante que o texto seja branco */
+            color: white;
         }
-
         .header-subtitle {
-            font-size: 22px; /* Subtítulo um pouco maior */
+            font-size: 22px;
             opacity: 0.98;
             font-style: italic;
             letter-spacing: 0.7px;
-            color: white; /* Garante que o texto seja branco */
+            color: white;
             margin-top: 0;
             text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
         }
-
         .form-container {
             padding: 40px;
         }
-
         .form-section {
             margin-bottom: 35px;
             padding-bottom: 30px;
             border-bottom: 1px dashed var(--border-color);
         }
-
         .form-section:last-of-type {
             border-bottom: none;
             padding-bottom: 0;
             margin-bottom: 0;
         }
-
         .section-title {
             display: flex;
             align-items: center;
@@ -120,7 +104,6 @@
             font-family: 'Playfair Display', serif;
             font-weight: 600;
         }
-
         .section-title i {
             margin-right: 15px;
             background: var(--primary);
@@ -134,17 +117,14 @@
             font-size: 18px;
             box-shadow: 0 2px 8px rgba(0,0,0,0.2);
         }
-
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 25px;
         }
-
         .form-group {
             margin-bottom: 15px;
         }
-
         .form-group label {
             display: block;
             margin-bottom: 10px;
@@ -152,7 +132,6 @@
             color: var(--dark-text);
             font-size: 15px;
         }
-
         .form-group input,
         .form-group select,
         .form-group textarea {
@@ -165,7 +144,6 @@
             background-color: var(--light-bg);
             color: var(--dark-text);
         }
-
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
@@ -174,23 +152,19 @@
             box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.2);
             background-color: white;
         }
-
         .radio-group {
             display: flex;
             gap: 25px;
             flex-wrap: wrap;
             margin-top: 10px;
         }
-
         .radio-option {
             display: flex;
             align-items: center;
             gap: 8px;
             cursor: pointer;
         }
-
         .radio-option input[type="radio"] {
-            /* Reset default browser styles */
             -webkit-appearance: none;
             -moz-appearance: none;
             appearance: none;
@@ -203,14 +177,12 @@
             transition: background-color 0.2s, border-color 0.2s;
             position: relative;
             background-color: white;
-            flex-shrink: 0; /* Prevents shrinking on smaller screens */
+            flex-shrink: 0;
         }
-
         .radio-option input[type="radio"]:checked {
             background-color: var(--primary);
             border-color: var(--primary);
         }
-
         .radio-option input[type="radio"]:checked::before {
             content: '';
             display: block;
@@ -223,13 +195,11 @@
             left: 50%;
             transform: translate(-50%, -50%);
         }
-
         .required::after {
             content: " *";
             color: var(--error);
             margin-left: 2px;
         }
-
         .btn {
             padding: 16px 35px;
             border: none;
@@ -246,25 +216,21 @@
             text-transform: uppercase;
             letter-spacing: 0.8px;
         }
-
         .btn-primary {
             background: linear-gradient(to right, var(--primary), var(--secondary));
             color: white;
             width: 100%;
             box-shadow: 0 6px 20px rgba(193, 154, 107, 0.4);
         }
-
         .btn-primary:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 25px rgba(193, 154, 107, 0.5);
         }
-
         .btn-primary:disabled {
             opacity: 0.7;
             cursor: not-allowed;
             transform: none;
         }
-
         .consent-box {
             background-color: var(--light-bg);
             border-left: 6px solid var(--primary);
@@ -273,7 +239,6 @@
             border-radius: 12px;
             box-shadow: inset 0 0 10px rgba(0,0,0,0.05);
         }
-
         .consent-box h3 {
             color: var(--dark-text);
             margin-bottom: 18px;
@@ -281,12 +246,10 @@
             font-size: 20px;
             font-weight: 700;
         }
-
         .consent-list {
             list-style-type: none;
             padding-left: 0;
         }
-
         .consent-list li {
             margin-bottom: 14px;
             padding-left: 30px;
@@ -294,10 +257,9 @@
             font-size: 15px;
             color: #6C5E4E;
         }
-
         .consent-list li:before {
-            content: "\f00c"; /* Checkmark icon */
-            font-family: "Font Awesome 5 Free"; /* Ensure this font-family is loaded */
+            content: "\f00c";
+            font-family: "Font Awesome 5 Free";
             font-weight: 900;
             color: var(--primary);
             position: absolute;
@@ -305,59 +267,50 @@
             font-size: 18px;
             top: 2px;
         }
-
-        /* --- Estilos para o Signature Pad --- */
         .signature-pad-wrapper {
-            position: relative; /* Para posicionar o botão de limpar */
+            position: relative;
             margin-top: 15px;
         }
-
         .signature-pad-container {
             border: 2px dashed var(--border-color);
             border-radius: 10px;
-            height: 160px; /* Altura fixa para a área de assinatura */
+            height: 160px;
             background-color: #fcfcfc;
             transition: all 0.3s ease;
-            position: relative; /* Para posicionar o canvas e o placeholder */
-            overflow: hidden; /* Garante que o desenho não transborde */
-            display: flex; /* Para centralizar o placeholder */
-            align-items: center; /* Para centralizar o placeholder */
-            justify-content: center; /* Para centralizar o placeholder */
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-
         .signature-pad-container canvas {
             position: absolute;
             left: 0;
             top: 0;
-            width: 100%; /* Ocupa a largura total do container */
-            height: 100%; /* Ocupa a altura total do container */
-            touch-action: none; /* Previne o scroll da página ao assinar no touch */
-            background-color: transparent; /* Para o background do container aparecer */
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+            background-color: transparent;
         }
-
         .signature-pad-container .placeholder-text {
             color: var(--dark-text);
             font-style: italic;
             text-align: center;
             padding: 10px;
-            position: absolute; /* Para ficar por cima do canvas vazio */
-            z-index: 1; /* Garante que o texto aparece acima do canvas */
-            pointer-events: none; /* Permite clicar no canvas por baixo */
+            position: absolute;
+            z-index: 1;
+            pointer-events: none;
             transition: opacity 0.3s ease;
         }
-
         .signature-pad-container.has-signature .placeholder-text {
-            opacity: 0; /* Esconde o texto quando há assinatura */
-            visibility: hidden; /* Remove do fluxo para não interferir em leitores de tela */
+            opacity: 0;
+            visibility: hidden;
         }
-
         .signature-pad-container:hover {
             border-color: var(--primary);
         }
-
-        /* Estilos para o botão de limpar assinatura */
         .clear-signature-btn {
-            background-color: #f44336; /* Vermelho para limpar */
+            background-color: #f44336;
             color: white;
             border: none;
             border-radius: 5px;
@@ -367,16 +320,13 @@
             margin-top: 10px;
             display: block;
             width: fit-content;
-            margin-left: auto; /* Alinha à direita */
-            margin-right: auto; /* Alinha à esquerda, ou 'auto' para centralizar se não houver float */
+            margin-left: auto;
+            margin-right: auto;
             transition: background-color 0.3s ease;
         }
-
         .clear-signature-btn:hover {
             background-color: #d32f2f;
         }
-        /* --- Fim dos Estilos para o Signature Pad --- */
-
         .floral-divider {
             text-align: center;
             margin: 30px 0;
@@ -384,7 +334,6 @@
             font-size: 28px;
             letter-spacing: 5px;
         }
-
         footer {
             text-align: center;
             padding: 25px;
@@ -393,7 +342,6 @@
             font-size: 15px;
             border-top: 1px solid var(--border-color);
         }
-
         .toast {
             position: fixed;
             bottom: 20px;
@@ -404,31 +352,25 @@
             border-radius: 8px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             opacity: 0;
-            transition: opacity 0.3s ease-in-out; /* Add ease-in-out for smoother animation */
+            transition: opacity 0.3s ease-in-out;
             z-index: 1000;
         }
-
         .toast.show {
             opacity: 1;
         }
-
         .toast.error {
             background: var(--error);
         }
-
-        /* Responsividade */
         @media (max-width: 1200px) {
             .container {
                 max-width: 95%;
             }
         }
-
         @media (max-width: 992px) {
             .form-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
         }
-
         @media (max-width: 768px) {
             body {
                 padding: 10px;
@@ -487,7 +429,6 @@
                 height: 100px;
             }
         }
-
         @media (max-width: 480px) {
             .header-title {
                 font-size: 24px;
@@ -508,8 +449,6 @@
                 height: 80px;
             }
         }
-
-        /* Ajustes para tablets em modo retrato */
         @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
             .form-grid {
                 grid-template-columns: repeat(2, 1fr);
@@ -518,25 +457,37 @@
                 height: 140px;
             }
         }
-
-        /* Ajustes para tablets em modo paisagem */
         @media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
             .form-grid {
                 grid-template-columns: repeat(3, 1fr);
             }
         }
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        .loading-spinner {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
-    <!-- Inclui a biblioteca Signature Pad -->
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-    <!-- Inclui a biblioteca jsPDF para gerar PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.25/jspdf.plugin.autotable.min.js"></script>
-    <!-- Inclui a biblioteca EmailJS para envio de emails -->
-    <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3.2.0/dist/email.min.js"></script>
-    <script>
-        // Inicializa EmailJS com seu User ID
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
         (function() {
-            emailjs.init('service_fyzmxh9'); // Service ID do EmailJS
+            emailjs.init({
+                publicKey: "b7nhKp4Fm0FUkDiIs" 
+            });
         })();
     </script>
 </head>
@@ -759,12 +710,16 @@
                             </div>
                             <button type="button" id="clearSignature" class="clear-signature-btn">Limpar Assinatura</button>
                         </div>
-                        <!-- Campo oculto para guardar a imagem da assinatura em base64 -->
                         <input type="hidden" id="assinaturaData" name="assinaturaData" required>
                     </div>
                 </div>
 
-                <button type="submit" class="btn btn-primary">
+                <div class="loading" id="loadingIndicator">
+                    <div class="loading-spinner"></div>
+                    <p>Enviando formulário, por favor aguarde...</p>
+                </div>
+
+                <button type="submit" class="btn btn-primary" id="submitButton">
                     <i class="fas fa-paper-plane"></i> Enviar Ficha de Anamnese
                 </button>
             </form>
@@ -804,223 +759,122 @@
             e.target.value = value;
         });
 
-        // Inicialização do Signature Pad
         document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('bronzeForm');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const submitButton = document.getElementById('submitButton');
+            const toast = document.getElementById('toast');
+
+            // Configuração do Signature Pad
             const canvas = document.getElementById('signatureCanvas');
+            const signaturePadContainer = document.getElementById('signaturePadContainer');
             const signaturePad = new SignaturePad(canvas, {
-                backgroundColor: 'rgba(255, 255, 255, 0)',
-                penColor: '#5D4037',
-                minWidth: 1,
-                maxWidth: 3,
-                throttle: 16
+                backgroundColor: 'rgb(252, 252, 252)',
+                penColor: 'rgb(0, 0, 0)'
             });
 
-            // Ajusta o canvas para ficar com alta resolução em telas retina
             function resizeCanvas() {
                 const ratio = Math.max(window.devicePixelRatio || 1, 1);
                 canvas.width = canvas.offsetWidth * ratio;
                 canvas.height = canvas.offsetHeight * ratio;
                 canvas.getContext('2d').scale(ratio, ratio);
-                signaturePad.clear(); // Limpa a assinatura após redimensionar
+                if (!signaturePad.isEmpty()) {
+                    const data = signaturePad.toData();
+                    signaturePad.clear();
+                    signaturePad.fromData(data);
+                } else {
+                    signaturePad.clear();
+                }
             }
-            
-            // Redimensiona o canvas quando a janela é redimensionada
             window.addEventListener('resize', resizeCanvas);
             resizeCanvas();
 
-            // Botão para limpar a assinatura
-            document.getElementById('clearSignature').addEventListener('click', function() {
-                signaturePad.clear();
-                document.getElementById('assinaturaData').value = '';
-                document.getElementById('signaturePadContainer').classList.remove('has-signature');
+            signaturePad.addEventListener('beginStroke', () => {
+                signaturePadContainer.classList.add('has-signature');
             });
 
-            // Atualiza o campo hidden com a assinatura em base64 quando o usuário assina
-            canvas.addEventListener('mouseup', updateSignatureData);
-            canvas.addEventListener('touchend', updateSignatureData);
+            document.getElementById('clearSignature').addEventListener('click', () => {
+                signaturePad.clear();
+                signaturePadContainer.classList.remove('has-signature');
+            });
 
-            function updateSignatureData() {
-                if (!signaturePad.isEmpty()) {
-                    const signatureData = signaturePad.toDataURL('image/png');
-                    document.getElementById('assinaturaData').value = signatureData;
-                    document.getElementById('signaturePadContainer').classList.add('has-signature');
-                }
+            function showToast(message, type) {
+                toast.textContent = message;
+                toast.className = `toast show ${type}`;
+                setTimeout(() => {
+                    toast.className = toast.className.replace("show", "");
+                }, 3000);
             }
 
-            // Validação do formulário
-            document.getElementById('bronzeForm').addEventListener('submit', function(e) {
-                e.preventDefault();
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
                 
-                // Verifica se há uma assinatura
                 if (signaturePad.isEmpty()) {
-                    showToast('Por favor, forneça sua assinatura digital', 'error');
+                    showToast('Por favor, assine a ficha.', 'error');
                     return;
                 }
-                
-                // Aqui você pode adicionar mais validações ou enviar o formulário
-                showToast('Formulário enviado com sucesso!', 'success');
-                
-                // Gera e envia o PDF por email
-                generateAndSendPDF();
-            });
 
-            // Função para gerar o PDF e enviar por email
-            function generateAndSendPDF() {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                
-                // Adiciona logo
-                const logo = new Image();
-                logo.src = 'https://storage.tally.so/cc75fad2-d6a4-406b-8919-422d527cf5c6/logo.jpg';
-                
-                // Adiciona título
-                doc.setFontSize(22);
-                doc.setTextColor(66, 66, 66);
-                doc.text('Ficha de Anamnese - JB Spa de Bronze', 105, 30, { align: 'center' });
-                
-                // Adiciona dados pessoais
-                doc.setFontSize(14);
-                doc.text('Dados Pessoais', 14, 50);
-                doc.setFontSize(12);
-                
-                const personalData = [
-                    ['Nome:', document.getElementById('nome').value],
-                    ['Documento:', document.getElementById('documento').value],
-                    ['Celular:', document.getElementById('celular').value],
-                    ['Email:', document.getElementById('email').value],
-                    ['Data Nascimento:', document.getElementById('nascimento').value],
-                    ['Data Procedimento:', document.getElementById('data').value]
-                ];
-                
-                doc.autoTable({
-                    startY: 55,
-                    head: [['Campo', 'Valor']],
-                    body: personalData,
-                    margin: { left: 14 },
-                    styles: { fontSize: 10 }
-                });
-                
-                // Adiciona endereço
-                doc.setFontSize(14);
-                doc.text('Endereço', 14, doc.autoTable.previous.finalY + 15);
-                doc.setFontSize(12);
-                
-                const addressData = [
-                    ['CEP:', document.getElementById('cep').value],
-                    ['Endereço:', document.getElementById('endereco').value],
-                    ['Complemento:', document.getElementById('complemento').value],
-                    ['Bairro:', document.getElementById('bairro').value],
-                    ['Cidade:', document.getElementById('cidade').value],
-                    ['Estado:', document.getElementById('estado').value]
-                ];
-                
-                doc.autoTable({
-                    startY: doc.autoTable.previous.finalY + 20,
-                    head: [['Campo', 'Valor']],
-                    body: addressData,
-                    margin: { left: 14 },
-                    styles: { fontSize: 10 }
-                });
-                
-                // Adiciona questionário de saúde
-                doc.setFontSize(14);
-                doc.text('Questionário de Saúde', 14, doc.autoTable.previous.finalY + 15);
-                doc.setFontSize(12);
-                
-                const healthQuestions = [
-                    ['Consumiu álcool nas últimas 24h?', getRadioValue('alcool')],
-                    ['Teve uma boa noite de sono?', getRadioValue('sono')],
-                    ['Faz tratamento médico?', getRadioValue('tratamento')],
-                    ['Faz uso de medicamentos?', getRadioValue('medicamento')],
-                    ['Fez tratamento com laser?', getRadioValue('laser')],
-                    ['Tem doença crônica?', getRadioValue('doenca')],
-                    ['Tem alergias?', getRadioValue('alergia')],
-                    ['Suspeita de gestação?', getRadioValue('gestacao')],
-                    ['Fez cirurgia recente?', getRadioValue('cirurgia')],
-                    ['Fez tratamento com ácido?', getRadioValue('acido')],
-                    ['Tem doença de pele?', getRadioValue('pele')],
-                    ['Hipertensão ou diabetes?', getRadioValue('hipertensao')],
-                    ['Tratamento oncológico?', getRadioValue('oncologico')],
-                    ['Possui tatuagens?', getRadioValue('tatuagem')]
-                ];
-                
-                doc.autoTable({
-                    startY: doc.autoTable.previous.finalY + 20,
-                    head: [['Pergunta', 'Resposta']],
-                    body: healthQuestions,
-                    margin: { left: 14 },
-                    styles: { fontSize: 10 }
-                });
-                
-                // Adiciona autorização de imagem
-                doc.setFontSize(14);
-                doc.text('Autorizações', 14, doc.autoTable.previous.finalY + 15);
-                doc.setFontSize(12);
-                doc.text(`Autoriza uso de imagem: ${getRadioValue('imagem')}`, 14, doc.autoTable.previous.finalY + 25);
-                
-                // Adiciona assinatura
-                const signatureData = document.getElementById('assinaturaData').value;
-                if (signatureData) {
-                    const signatureImg = new Image();
-                    signatureImg.src = signatureData;
-                    
-                    doc.addImage(signatureImg, 'PNG', 14, doc.autoTable.previous.finalY + 40, 100, 50);
-                    doc.text('Assinatura Digital:', 14, doc.autoTable.previous.finalY + 35);
-                }
-                
-                // Gera PDF e envia por email
-                const pdfOutput = doc.output('datauristring');
-                
-                const emailParams = {
-                    to_email: 'jbspadebronze@gmail.com',
-                    from_name: 'Formulário JB Spa de Bronze',
-                    subject: 'Nova Ficha de Anamnese - ' + document.getElementById('nome').value,
-                    message: 'Uma nova ficha de anamnese foi preenchida. Verifique o anexo.',
-                    pdf_file: pdfOutput
+                loadingIndicator.style.display = 'block';
+                submitButton.disabled = true;
+
+                // Coleta os dados do formulário
+                const formData = {
+                    nome: document.getElementById('nome').value,
+                    documento: document.getElementById('documento').value,
+                    celular: document.getElementById('celular').value,
+                    email: document.getElementById('email').value,
+                    data: document.getElementById('data').value,
+                    nascimento: document.getElementById('nascimento').value,
+                    cep: document.getElementById('cep').value,
+                    endereco: document.getElementById('endereco').value,
+                    complemento: document.getElementById('complemento').value,
+                    bairro: document.getElementById('bairro').value,
+                    cidade: document.getElementById('cidade').value,
+                    estado: document.getElementById('estado').value,
+                    alcool: document.querySelector('input[name="alcool"]:checked')?.value || '',
+                    sono: document.querySelector('input[name="sono"]:checked')?.value || '',
+                    tratamento: document.querySelector('input[name="tratamento"]:checked')?.value || '',
+                    medicamento: document.querySelector('input[name="medicamento"]:checked')?.value || '',
+                    laser: document.querySelector('input[name="laser"]:checked')?.value || '',
+                    doenca: document.querySelector('input[name="doenca"]:checked')?.value || '',
+                    alergia: document.querySelector('input[name="alergia"]:checked')?.value || '',
+                    gestacao: document.querySelector('input[name="gestacao"]:checked')?.value || '',
+                    cirurgia: document.querySelector('input[name="cirurgia"]:checked')?.value || '',
+                    acido: document.querySelector('input[name="acido"]:checked')?.value || '',
+                    pele: document.querySelector('input[name="pele"]:checked')?.value || '',
+                    hipertensao: document.querySelector('input[name="hipertensao"]:checked')?.value || '',
+                    oncologico: document.querySelector('input[name="oncologico"]:checked')?.value || '',
+                    tatuagem: document.querySelector('input[name="tatuagem"]:checked')?.value || '',
+                    imagem: document.querySelector('input[name="imagem"]:checked')?.value || '',
+                    assinatura: signaturePad.toDataURL("image/png")
                 };
-                
-                // Salva o PDF localmente primeiro para teste
-                doc.save('ficha_anamnese.pdf');
-                
-                // Envia por email (substitua com seu template ID real)
-                emailjs.send('service_fyzmxh9', 'template_your_template_id', emailParams)
-                    .then(function(response) {
-                        showToast('Formulário salvo com sucesso! Verifique seu downloads.', 'success');
-                        console.log('Email enviado:', response);
-                    }, function(error) {
-                        showToast('Formulário salvo localmente. O envio por email falhou.', 'error');
-                        console.log('Erro ao enviar email:', error);
-                    });
-            }
-            
-            function getRadioValue(name) {
-                return document.querySelector(`input[name="${name}"]:checked`)?.value || 'Não informado';
-            }
 
-            // Função para mostrar notificações toast
-            function showToast(message, type = 'success') {
-                const toast = document.getElementById('toast');
-                toast.textContent = message;
-                toast.className = 'toast';
-                
-                if (type === 'error') {
-                    toast.classList.add('error');
+                // Formata os dados para o EmailJS
+                const templateParams = {
+                    ...formData,
+                    data: formData.data ? new Date(formData.data).toLocaleDateString('pt-BR') : '',
+                    nascimento: formData.nascimento ? new Date(formData.nascimento).toLocaleDateString('pt-BR') : '',
+                    data_envio: new Date().toLocaleDateString('pt-BR'),
+                    hora_envio: new Date().toLocaleTimeString('pt-BR')
+                };
+
+                try {
+                    // Envia o e-mail via EmailJS com as credenciais corretas
+                    await emailjs.send("service_fyzmxh9", "template_wgehft2", templateParams);
+
+                    showToast('Ficha enviada com sucesso!', 'success');
+                    form.reset();
+                    signaturePad.clear();
+                    signaturePadContainer.classList.remove('has-signature');
+
+                } catch (error) {
+                    console.error('Erro ao enviar o e-mail:', error);
+                    showToast('Ocorreu um erro ao enviar. Tente novamente.', 'error');
+                } finally {
+                    loadingIndicator.style.display = 'none';
+                    submitButton.disabled = false;
                 }
-                
-                // Posicionamento diferente para mobile
-                if (window.innerWidth <= 768) {
-                    toast.style.bottom = '70px';
-                    toast.style.right = '10px';
-                    toast.style.left = '10px';
-                    toast.style.width = 'auto';
-                }
-                
-                toast.classList.add('show');
-                
-                setTimeout(() => {
-                    toast.classList.remove('show');
-                }, window.innerWidth <= 768 ? 3000 : 5000);
-            }
+            });
         });
     </script>
 </body>

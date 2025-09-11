@@ -1,78 +1,75 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Administrativo</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Administrativo</title>
+    <meta property="og:image" content="https://jbforms.github.io/jbspadebronzeamento/logo-jb.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
-    <!-- Tela de Login -->
-    <div id="loginScreen" class="login-container">
-        <div class="login-box">
-            <img src="https://via.placeholder.com/150/007bff/ffffff?text=LOGO" alt="Logo da Empresa" class="login-logo">
-            <h2>Bem-vindo!</h2>
-            <p>Faça login para acessar o painel administrativo.</p>
-            <div class="input-group">
-                <i class="fas fa-user"></i>
-                <input type="text" id="username" placeholder="Usuário">
-            </div>
-            <div class="input-group">
-                <i class="fas fa-lock"></i>
-                <input type="password" id="password" placeholder="Senha">
-            </div>
-            <button class="btn-login" onclick="login()">Entrar</button>
-            <p id="loginMessage" class="error-message"></p>
-        </div>
-    </div>
+        <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <img src="https://via.placeholder.com/150/007bff/ffffff?text=LOGO" alt="Logo da Empresa" class="login-logo">
+            <h2>Bem-vindo!</h2>
+            <p>Faça login para acessar o painel administrativo.</p>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" placeholder="Usuário">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" placeholder="Senha">
+            </div>
+            <button class="btn-login" onclick="login()">Entrar</button>
+            <p id="loginMessage" class="error-message"></p>
+        </div>
+    </div>
 
-    <!-- Painel Administrativo -->
-    <div id="adminPanel" class="admin-panel-container">
-        <header class="header">
-            <div class="header-left">
-                <img src="https://via.placeholder.com/50/007bff/ffffff?text=L" alt="Logo" class="header-logo">
-                <h1>Painel de Formulários</h1>
-            </div>
-            <nav class="header-nav">
-                <button class="btn btn-primary" onclick="openModal()">
-                    <i class="fas fa-plus-circle"></i> Adicionar Novo Formulário
-                </button>
-                <button class="btn btn-secondary" onclick="logout()">
-                    <i class="fas fa-sign-out-alt"></i> Sair
-                </button>
-            </nav>
-        </header>
+        <div id="adminPanel" class="admin-panel-container">
+        <header class="header">
+            <div class="header-left">
+                <img src="https://via.placeholder.com/50/007bff/ffffff?text=L" alt="Logo" class="header-logo">
+                <h1>Painel de Formulários</h1>
+            </div>
+            <nav class="header-nav">
+                <button class="btn btn-primary" onclick="openModal()">
+                    <i class="fas fa-plus-circle"></i> Adicionar Novo Formulário
+                </button>
+                <button class="btn btn-secondary" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Sair
+                </button>
+            </nav>
+        </header>
 
-        <main class="main-content">
-            <div id="formsContainer" class="forms-grid">
-                <!-- Formulários serão renderizados aqui pelo JavaScript -->
-            </div>
-        </main>
-    </div>
+        <main class="main-content">
+            <div id="formsContainer" class="forms-grid">
+                            </div>
+        </main>
+    </div>
 
-    <!-- Modal para Adicionar/Editar Formulário -->
-    <div id="addFormModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal()">&times;</span>
-            <h2>Adicionar Novo Formulário</h2>
-            <div class="input-group">
-                <label for="formName">Nome do Formulário:</label>
-                <input type="text" id="formName" placeholder="Ex: Formulário de Contato">
-            </div>
-            <div class="input-group">
-                <label for="formDescription">Descrição (Opcional):</label>
-                <textarea id="formDescription" placeholder="Detalhes sobre o formulário..."></textarea>
-            </div>
-            <div class="input-group">
-                <label for="formLink">Link do Formulário:</label>
-                <input type="url" id="formLink" placeholder="Ex: https://forms.gle/abcdefghijk">
-            </div>
-            <button class="btn btn-primary" onclick="addNewForm()">Salvar Formulário</button>
-        </div>
-    </div>
+        <div id="addFormModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button" onclick="closeModal()">&times;</span>
+            <h2>Adicionar Novo Formulário</h2>
+            <div class="input-group">
+                <label for="formName">Nome do Formulário:</label>
+                <input type="text" id="formName" placeholder="Ex: Formulário de Contato">
+            </div>
+            <div class="input-group">
+                <label for="formDescription">Descrição (Opcional):</label>
+                <textarea id="formDescription" placeholder="Detalhes sobre o formulário..."></textarea>
+            </div>
+            <div class="input-group">
+                <label for="formLink">Link do Formulário:</label>
+                <input type="url" id="formLink" placeholder="Ex: https://forms.gle/abcdefghijk">
+            </div>
+            <button class="btn btn-primary" onclick="addNewForm()">Salvar Formulário</button>
+        </div>
+    </div>
 
-    <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

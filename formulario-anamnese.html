@@ -31,7 +31,7 @@
             color: var(--dark-text);
             line-height: 1.6;
             padding: 20px;
-            min-height: 100vh;
+            min-height: 10vh;
         }
         .container {
             max-width: 900px;
@@ -436,7 +436,9 @@
             .header-subtitle {
                 font-size: 14px;
             }
-            .form-group input, .form-group select, .form-group textarea {
+            .form-group input,
+            .form-group select,
+            .form-group textarea {
                 padding: 12px;
                 font-size: 14px;
             }
@@ -475,22 +477,18 @@
             margin: 0 auto;
         }
         @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-            100% {
-                transform: rotate(360deg);
-            }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    
     <script type="text/javascript">
         (function() {
-            emailjs.init("b7nhKp4Fm0FUkDiIs");
+            emailjs.init({
+                publicKey: "b7nhKp4Fm0FUkDiIs" 
+            });
         })();
     </script>
 </head>
@@ -503,6 +501,7 @@
             <h1 class="header-title">JB SPA DE BRONZE</h1>
             <p class="header-subtitle">Cuidado, beleza e elegância para sua pele</p>
         </header>
+
         <div class="form-container">
             <form id="bronzeForm">
                 <div class="form-section">
@@ -517,175 +516,163 @@
                         </div>
                         <div class="form-group">
                             <label for="documento" class="required">Documento (CPF ou RG)</label>
-                            <input type="text" id="documento" name="documento" required placeholder="Digite seu documento">
+                            <input type="text" id="documento" name="documento" required placeholder="Digite seu CPF ou RG">
                         </div>
                         <div class="form-group">
-                            <label for="nascimento" class="required">Data de nascimento</label>
+                            <label for="celular" class="required">Celular</label>
+                            <input type="tel" id="celular" name="celular" required placeholder="(00) 00000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label for="email" class="required">E-mail</label>
+                            <input type="email" id="email" name="email" required placeholder="seuemail@exemplo.com">
+                        </div>
+                        <div class="form-group">
+                            <label for="data" class="required">Data do procedimento</label>
+                            <input type="date" id="data" name="data" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="nascimento" class="required">Data de Nascimento</label>
                             <input type="date" id="nascimento" name="nascimento" required>
                         </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="section-title">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <span>Endereço</span>
+                    </div>
+                    <div class="form-grid">
                         <div class="form-group">
-                            <label for="telefone" class="required">Telefone</label>
-                            <input type="tel" id="telefone" name="telefone" required placeholder="(XX) XXXXX-XXXX">
+                            <label for="cep">CEP (opcional)</label>
+                            <input type="text" id="cep" name="cep" placeholder="00000-000">
                         </div>
                         <div class="form-group">
-                            <label for="endereco">Endereço</label>
-                            <input type="text" id="endereco" name="endereco" placeholder="Endereço completo">
+                            <label for="endereco" class="required">Rua e Número</label>
+                            <input type="text" id="endereco" name="endereco" required placeholder="Rua, número">
                         </div>
                         <div class="form-group">
-                            <label for="profissao">Profissão</label>
-                            <input type="text" id="profissao" name="profissao" placeholder="Digite sua profissão">
+                            <label for="complemento">Complemento (apto, bloco)</label>
+                            <input type="text" id="complemento" name="complemento" placeholder="Apto, bloco">
+                        </div>
+                        <div class="form-group">
+                            <label for="bairro" class="required">Bairro</label>
+                            <input type="text" id="bairro" name="bairro" required placeholder="Digite seu bairro">
+                        </div>
+                        <div class="form-group">
+                            <label for="cidade" class="required">Cidade</label>
+                            <input type="text" id="cidade" name="cidade" required placeholder="Digite sua cidade">
+                        </div>
+                        <div class="form-group">
+                            <label for="estado" class="required">Estado</label>
+                            <input type="text" id="estado" name="estado" required placeholder="Digite seu estado (ex: SP)">
                         </div>
                     </div>
                 </div>
 
                 <div class="form-section">
                     <div class="section-title">
-                        <i class="fas fa-venus-mars"></i>
-                        <span>Questionário de Saúde e Histórico</span>
+                        <i class="fas fa-notes-medical"></i>
+                        <span>Questionário de Saúde</span>
                     </div>
+
                     <div class="form-grid">
                         <div class="form-group">
-                            <label class="required">Alergias?</label>
+                            <label class="required">Consumiu bebida alcoólica nas últimas 24h?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="alergias" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="alergias" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="alcool" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="alcool" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="detalhes_alergias">Se sim, quais?</label>
-                            <input type="text" id="detalhes_alergias" name="detalhes_alergias" placeholder="Detalhe as alergias">
-                        </div>
-                        <div class="form-group">
-                            <label class="required">Diabetes?</label>
+                            <label class="required">Teve uma boa noite de sono?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="diabetes" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="diabetes" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="sono" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="sono" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Pressão alta?</label>
+                            <label class="required">Faz algum tratamento médico?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="pressao_alta" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="pressao_alta" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="tratamento" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="tratamento" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Problemas circulatórios?</label>
+                            <label class="required">Faz uso de algum medicamento?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="problemas_circulatorios" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="problemas_circulatorios" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="medicamento" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="medicamento" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Tem ou teve câncer?</label>
+                            <label class="required">Fez tratamento estético com laser nos últimos 3 meses?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="cancer" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="cancer" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="laser" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="laser" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Histórico de doenças de pele?</label>
+                            <label class="required">Tem alguma doença crônica ou síndrome?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="doencas_pele" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="doencas_pele" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="doenca" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="doenca" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="detalhes_doencas_pele">Se sim, quais?</label>
-                            <input type="text" id="detalhes_doencas_pele" name="detalhes_doencas_pele" placeholder="Detalhe as doenças de pele">
-                        </div>
-                        <div class="form-group">
-                            <label class="required">Está grávida?</label>
+                            <label class="required">Tem histórico de alergia?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="gravida" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="gravida" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="alergia" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="alergia" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Usa algum medicamento?</label>
+                            <label class="required">Suspeita de gestação?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="medicamentos" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="medicamentos" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="gestacao" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="gestacao" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="detalhes_medicamentos">Se sim, quais?</label>
-                            <input type="text" id="detalhes_medicamentos" name="detalhes_medicamentos" placeholder="Detalhe os medicamentos">
-                        </div>
-                        <div class="form-group">
-                            <label class="required">Faz uso de anticoncepcional?</label>
+                            <label class="required">Fez alguma cirurgia nos últimos 12 meses?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="anticoncepcional" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="anticoncepcional" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="cirurgia" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="cirurgia" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Tem pintas ou manchas no corpo?</label>
+                            <label class="required">Fez tratamento estético com ácido nos últimos 3 meses?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="pintas_manchas" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="pintas_manchas" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="acido" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="acido" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Faz uso de Roacutan ou outro ácido?</label>
+                            <label class="required">Tem alguma doença de pele?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="roacutan_acido" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="roacutan_acido" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="pele" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="pele" value="Não"> Não</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="required">Sua pele bronzeia com facilidade?</label>
+                            <label class="required">Possui hipertensão ou diabetes?</label>
                             <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="bronzeia_facilidade" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="bronzeia_facilidade" value="Não" required> Não
-                                </label>
+                                <label class="radio-option"><input type="radio" name="hipertensao" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="hipertensao" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Já fez ou faz algum tratamento oncológico?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="oncologico" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="oncologico" value="Não"> Não</label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="required">Possui tatuagens ou micropigmentação na área a ser bronzeada?</label>
+                            <div class="radio-group">
+                                <label class="radio-option"><input type="radio" name="tatuagem" value="Sim" required> Sim</label>
+                                <label class="radio-option"><input type="radio" name="tatuagem" value="Não"> Não</label>
                             </div>
                         </div>
                     </div>
@@ -693,137 +680,181 @@
 
                 <div class="form-section">
                     <div class="section-title">
-                        <i class="fas fa-sun"></i>
-                        <span>Protocolo do Bronzeamento</span>
+                        <i class="fas fa-file-signature"></i>
+                        <span>Termos e Consentimento</span>
                     </div>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="required">Já fez bronzeamento?</label>
-                            <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="ja_fez_bronzeamento" value="Sim" required> Sim
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="ja_fez_bronzeamento" value="Não" required> Não
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="imagem_atual">Imagem da Pele</label>
-                            <div class="radio-group">
-                                <label class="radio-option">
-                                    <input type="radio" name="imagem" value="Nível 1"> Nível 1
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="imagem" value="Nível 2"> Nível 2
-                                </label>
-                                <label class="radio-option">
-                                    <input type="radio" name="imagem" value="Nível 3"> Nível 3
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label for="observacoes">Observações Adicionais</label>
-                            <textarea id="observacoes" name="observacoes" rows="4" placeholder="Algum detalhe importante?"></textarea>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="consent-box">
-                    <h3>Termo de Consentimento</h3>
-                    <p>Eu, **[Nome do Cliente]**, declaro que li e compreendi as informações acima. Confirmo que todas as respostas fornecidas são verdadeiras e completas. Fui informada sobre os riscos e benefícios do procedimento de bronzeamento artificial e concordo em prosseguir com o tratamento.</p>
-                    <ul class="consent-list">
-                        <li>Estou ciente que o sucesso do procedimento depende de diversos fatores, incluindo meu tipo de pele e histórico de saúde.</li>
-                        <li>Entendo que não devo me expor ao sol no dia da sessão.</li>
-                        <li>Fui orientada a seguir todas as recomendações de pré e pós-procedimento.</li>
-                    </ul>
+                    <div class="consent-box">
+                        <h3>Declaração de Ciência e Consentimento</h3>
+                        <ul class="consent-list">
+                            <li>Veracidade das Informações: Declaro que todas as informações fornecidas por mim neste formulário são verdadeiras e completas.</li>
+                            <li>Ciência e Riscos: Fui devidamente informada sobre os benefícios, riscos, indicações e contra indicações do procedimento de bronzeamento, incluindo possíveis reações alérgicas ou irritações cutâneas.</li>
+                            <li>Orientações Importantes: Fui alertada sobre a importância de não utilizar o aparelho celular durante a sessão e respeitar rigorosamente o tempo de exposição estipulado pela profissional. Comprometo-me a seguir as orientações de pré e pós-procedimento.</li>
+                            <li>Autorização: Autorizo a profissional Brenda Gama, do espaço JB SPA DE BRONZE, a realizar o procedimento de bronzeamento.</li>
+                        </ul>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="required">Você autoriza o uso de sua imagem (fotos/vídeos) e depoimentos para fins de marketing e divulgação do espaço JB SPA DE BRONZE em redes sociais e outros meios de comunicação?</label>
+                        <div class="radio-group">
+                            <label class="radio-option"><input type="radio" name="imagem" value="Sim" required> Sim</label>
+                            <label class="radio-option"><input type="radio" name="imagem" value="Não"> Não</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="signatureCanvas" class="required">Assinatura Digital (Desenhe sua assinatura abaixo)</label>
+                        <div class="signature-pad-wrapper">
+                            <div class="signature-pad-container" id="signaturePadContainer">
+                                <canvas id="signatureCanvas"></canvas>
+                                <span class="placeholder-text">Desenhe sua assinatura aqui</span>
+                            </div>
+                            <button type="button" id="clearSignature" class="clear-signature-btn">Limpar Assinatura</button>
+                        </div>
+                        <input type="hidden" id="assinaturaData" name="assinaturaData" required>
+                    </div>
                 </div>
                 
-                <div class="form-group signature-pad-wrapper">
-                    <label class="required">Assinatura Digital</label>
-                    <div id="signature-pad-container" class="signature-pad-container">
-                        <canvas id="signature-pad" width="400" height="160"></canvas>
-                        <span class="placeholder-text">Assine aqui com o dedo ou mouse</span>
-                    </div>
-                    <button type="button" id="clear-signature-btn" class="clear-signature-btn">Limpar Assinatura</button>
-                </div>
-
                 <div class="g-recaptcha" data-sitekey="6Lf99cgrAAAAAJuvW8pyndSFMc8mAmmJnQF1hQlO"></div>
 
-                <div class="form-group">
-                    <button type="submit" id="submitButton" class="btn btn-primary">
-                        Enviar Ficha
-                        <div id="loading" class="loading-spinner"></div>
-                    </button>
+                <div class="loading" id="loadingIndicator">
+                    <div class="loading-spinner"></div>
+                    <p>Enviando formulário, por favor aguarde...</p>
                 </div>
+
+                <button type="submit" class="btn btn-primary" id="submitButton">
+                    <i class="fas fa-paper-plane"></i> Enviar Ficha de Anamnese
+                </button>
             </form>
         </div>
+
+        <footer>
+            <p>JB SPA DE BRONZE &copy; 2023 - Todos os direitos reservados</p>
+        </footer>
     </div>
-    
-    <div id="toast" class="toast"></div>
 
-    <footer>
-        <p>Copyright &copy; 2025 JB Spa de Bronze. Todos os direitos reservados.</p>
-    </footer>
+    <div class="toast" id="toast"></div>
 
-    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
-        (function() {
-            emailjs.init("b7nhKp4Fm0FUkDiIs");
-        })();
-    </script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const form = document.getElementById('bronzeForm');
-            const submitButton = document.getElementById('submitButton');
-            const loadingIndicator = document.getElementById('loading');
-            const toast = document.getElementById('toast');
+        // Formatação de Celular
+        document.getElementById('celular').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 10) {
+                value = value.replace(/(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+            } else if (value.length > 6) {
+                value = value.replace(/(\d{2})(\d{4})(\d+)/, '($1) $2-$3');
+            } else if (value.length > 2) {
+                value = value.replace(/(\d{2})(\d+)/, '($1) $2');
+            }
+            e.target.value = value;
+        });
+
+        // Formatação de CEP
+        document.getElementById('cep').addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 8) value = value.slice(0, 8);
             
-            // Validação e envio do formulário
-            form.addEventListener('submit', async (e) => {
-                e.preventDefault();
+            if (value.length > 5) {
+                value = value.replace(/(\d{5})(\d{3})/, '$1-$2');
+            }
+            e.target.value = value;
+        });
 
-                // Lógica de envio do formulário (a mesma do seu arquivo original)
-                loadingIndicator.style.display = 'block';
-                submitButton.disabled = true;
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('bronzeForm');
+            const loadingIndicator = document.getElementById('loadingIndicator');
+            const submitButton = document.getElementById('submitButton');
+            const toast = document.getElementById('toast');
 
-                const signaturePadContainer = document.getElementById('signature-pad-container');
-                const signaturePad = new SignaturePad(document.getElementById('signature-pad'));
+            // Configuração do Signature Pad
+            const canvas = document.getElementById('signatureCanvas');
+            const signaturePadContainer = document.getElementById('signaturePadContainer');
+            const signaturePad = new SignaturePad(canvas, {
+                backgroundColor: 'rgb(252, 252, 252)',
+                penColor: 'rgb(0, 0, 0)'
+            });
+
+            function resizeCanvas() {
+                const ratio = Math.max(window.devicePixelRatio || 1, 1);
+                canvas.width = canvas.offsetWidth * ratio;
+                canvas.height = canvas.offsetHeight * ratio;
+                canvas.getContext('2d').scale(ratio, ratio);
+                if (!signaturePad.isEmpty()) {
+                    const data = signaturePad.toData();
+                    signaturePad.clear();
+                    signaturePad.fromData(data);
+                } else {
+                    signaturePad.clear();
+                }
+            }
+            window.addEventListener('resize', resizeCanvas);
+            resizeCanvas();
+
+            signaturePad.addEventListener('beginStroke', () => {
+                signaturePadContainer.classList.add('has-signature');
+            });
+
+            document.getElementById('clearSignature').addEventListener('click', () => {
+                signaturePad.clear();
+                signaturePadContainer.classList.remove('has-signature');
+            });
+
+            function showToast(message, type) {
+                toast.textContent = message;
+                toast.className = `toast show ${type}`;
+                setTimeout(() => {
+                    toast.className = toast.className.replace("show", "");
+                }, 3000);
+            }
+
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault();
 
                 if (signaturePad.isEmpty()) {
-                    showToast('Por favor, forneça sua assinatura.', 'error');
-                    loadingIndicator.style.display = 'none';
-                    submitButton.disabled = false;
+                    showToast('Por favor, assine a ficha.', 'error');
+                    return;
+                }
+                
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    showToast('Por favor, complete o reCAPTCHA.', 'error');
                     return;
                 }
 
+                loadingIndicator.style.display = 'block';
+                submitButton.disabled = true;
+
                 // Coleta os dados do formulário
                 const formData = {
-                    nome: document.getElementById('nome')?.value || '',
-                    documento: document.getElementById('documento')?.value || '',
-                    nascimento: document.getElementById('nascimento')?.value || '',
-                    telefone: document.getElementById('telefone')?.value || '',
-                    endereco: document.getElementById('endereco')?.value || '',
-                    profissao: document.getElementById('profissao')?.value || '',
-                    alergias: document.querySelector('input[name="alergias"]:checked')?.value || '',
-                    detalhes_alergias: document.getElementById('detalhes_alergias')?.value || '',
-                    diabetes: document.querySelector('input[name="diabetes"]:checked')?.value || '',
-                    pressao_alta: document.querySelector('input[name="pressao_alta"]:checked')?.value || '',
-                    problemas_circulatorios: document.querySelector('input[name="problemas_circulatorios"]:checked')?.value || '',
-                    cancer: document.querySelector('input[name="cancer"]:checked')?.value || '',
-                    doencas_pele: document.querySelector('input[name="doencas_pele"]:checked')?.value || '',
-                    detalhes_doencas_pele: document.getElementById('detalhes_doencas_pele')?.value || '',
-                    gravida: document.querySelector('input[name="gravida"]:checked')?.value || '',
-                    medicamentos: document.querySelector('input[name="medicamentos"]:checked')?.value || '',
-                    detalhes_medicamentos: document.getElementById('detalhes_medicamentos')?.value || '',
-                    anticoncepcional: document.querySelector('input[name="anticoncepcional"]:checked')?.value || '',
-                    pintas_manchas: document.querySelector('input[name="pintas_manchas"]:checked')?.value || '',
-                    roacutan_acido: document.querySelector('input[name="roacutan_acido"]:checked')?.value || '',
-                    bronzeia_facilidade: document.querySelector('input[name="bronzeia_facilidade"]:checked')?.value || '',
-                    ja_fez_bronzeamento: document.querySelector('input[name="ja_fez_bronzeamento"]:checked')?.value || '',
+                    nome: document.getElementById('nome').value,
+                    documento: document.getElementById('documento').value,
+                    celular: document.getElementById('celular').value,
+                    email: document.getElementById('email').value,
+                    data: document.getElementById('data').value,
+                    nascimento: document.getElementById('nascimento').value,
+                    cep: document.getElementById('cep').value,
+                    endereco: document.getElementById('endereco').value,
+                    complemento: document.getElementById('complemento').value,
+                    bairro: document.getElementById('bairro').value,
+                    cidade: document.getElementById('cidade').value,
+                    estado: document.getElementById('estado').value,
+                    alcool: document.querySelector('input[name="alcool"]:checked')?.value || '',
+                    sono: document.querySelector('input[name="sono"]:checked')?.value || '',
+                    tratamento: document.querySelector('input[name="tratamento"]:checked')?.value || '',
+                    medicamento: document.querySelector('input[name="medicamento"]:checked')?.value || '',
+                    laser: document.querySelector('input[name="laser"]:checked')?.value || '',
+                    doenca: document.querySelector('input[name="doenca"]:checked')?.value || '',
+                    alergia: document.querySelector('input[name="alergia"]:checked')?.value || '',
+                    gestacao: document.querySelector('input[name="gestacao"]:checked')?.value || '',
+                    cirurgia: document.querySelector('input[name="cirurgia"]:checked')?.value || '',
+                    acido: document.querySelector('input[name="acido"]:checked')?.value || '',
+                    pele: document.querySelector('input[name="pele"]:checked')?.value || '',
+                    hipertensao: document.querySelector('input[name="hipertensao"]:checked')?.value || '',
+                    oncologico: document.querySelector('input[name="oncologico"]:checked')?.value || '',
+                    tatuagem: document.querySelector('input[name="tatuagem"]:checked')?.value || '',
                     imagem: document.querySelector('input[name="imagem"]:checked')?.value || '',
-                    observacoes: document.getElementById('observacoes')?.value || '',
                     assinatura: signaturePad.toDataURL("image/png")
                 };
 
@@ -853,33 +884,6 @@
                     submitButton.disabled = false;
                 }
             });
-        });
-
-        // Funções auxiliares (as mesmas do seu arquivo original)
-        function showToast(message, type) {
-            const toast = document.getElementById('toast');
-            toast.textContent = message;
-            toast.className = `toast show ${type}`;
-            setTimeout(() => {
-                toast.className = toast.className.replace("show", "");
-            }, 5000);
-        }
-
-        const signaturePadContainer = document.getElementById('signature-pad-container');
-        const canvas = document.getElementById('signature-pad');
-        const signaturePad = new SignaturePad(canvas, {
-            backgroundColor: 'rgb(255, 255, 255)'
-        });
-        const clearButton = document.getElementById('clear-signature-btn');
-        const signaturePlaceholder = signaturePadContainer.querySelector('.placeholder-text');
-
-        signaturePad.addEventListener('endStroke', () => {
-            signaturePadContainer.classList.add('has-signature');
-        });
-
-        clearButton.addEventListener('click', () => {
-            signaturePad.clear();
-            signaturePadContainer.classList.remove('has-signature');
         });
     </script>
 </body>

@@ -706,8 +706,6 @@
                         <input type="hidden" id="assinaturaData" name="assinaturaData" required>
                     </div>
                 </div>
-                
-                <div class="g-recaptcha" data-sitekey="6LeC68grAAAAAN5T_293hp-Dhofjpc42C3w9Efm_"></div>
 
                 <div class="loading" id="loadingIndicator">
                     <div class="loading-spinner"></div>
@@ -727,7 +725,8 @@
 
     <div class="toast" id="toast"></div>
 
-    <script src="https://www.google.com/recaptcha/api.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js?render=6LeC68grAAAAAN5T_293hp-Dhofjpc42C3w9Efm_"></script>
+
     <script>
         // Formatação de Celular
         document.getElementById('celular').addEventListener('input', function(e) {
@@ -810,72 +809,72 @@
                     return;
                 }
                 
-                const recaptchaResponse = grecaptcha.getResponse();
-                if (!recaptchaResponse) {
-                    showToast('Por favor, complete o reCAPTCHA.', 'error');
-                    return;
-                }
-
                 loadingIndicator.style.display = 'block';
                 submitButton.disabled = true;
 
-                // Coleta os dados do formulário
-                const formData = {
-                    nome: document.getElementById('nome').value,
-                    documento: document.getElementById('documento').value,
-                    celular: document.getElementById('celular').value,
-                    email: document.getElementById('email').value,
-                    data: document.getElementById('data').value,
-                    nascimento: document.getElementById('nascimento').value,
-                    cep: document.getElementById('cep').value,
-                    endereco: document.getElementById('endereco').value,
-                    complemento: document.getElementById('complemento').value,
-                    bairro: document.getElementById('bairro').value,
-                    cidade: document.getElementById('cidade').value,
-                    estado: document.getElementById('estado').value,
-                    alcool: document.querySelector('input[name="alcool"]:checked')?.value || '',
-                    sono: document.querySelector('input[name="sono"]:checked')?.value || '',
-                    tratamento: document.querySelector('input[name="tratamento"]:checked')?.value || '',
-                    medicamento: document.querySelector('input[name="medicamento"]:checked')?.value || '',
-                    laser: document.querySelector('input[name="laser"]:checked')?.value || '',
-                    doenca: document.querySelector('input[name="doenca"]:checked')?.value || '',
-                    alergia: document.querySelector('input[name="alergia"]:checked')?.value || '',
-                    gestacao: document.querySelector('input[name="gestacao"]:checked')?.value || '',
-                    cirurgia: document.querySelector('input[name="cirurgia"]:checked')?.value || '',
-                    acido: document.querySelector('input[name="acido"]:checked')?.value || '',
-                    pele: document.querySelector('input[name="pele"]:checked')?.value || '',
-                    hipertensao: document.querySelector('input[name="hipertensao"]:checked')?.value || '',
-                    oncologico: document.querySelector('input[name="oncologico"]:checked')?.value || '',
-                    tatuagem: document.querySelector('input[name="tatuagem"]:checked')?.value || '',
-                    imagem: document.querySelector('input[name="imagem"]:checked')?.value || '',
-                    assinatura: signaturePad.toDataURL("image/png")
-                };
+                // Executa o reCAPTCHA v3 e obtém o token
+                grecaptcha.ready(async function() {
+                    const recaptchaToken = await grecaptcha.execute('6LeC68grAAAAAN5T_293hp-Dhofjpc42C3w9Efm_', {action: 'submit_form'});
 
-                // Formata os dados para o EmailJS
-                const templateParams = {
-                    ...formData,
-                    data: formData.data ? new Date(formData.data).toLocaleDateString('pt-BR') : '',
-                    nascimento: formData.nascimento ? new Date(formData.nascimento).toLocaleDateString('pt-BR') : '',
-                    data_envio: new Date().toLocaleDateString('pt-BR'),
-                    hora_envio: new Date().toLocaleTimeString('pt-BR')
-                };
+                    // Coleta os dados do formulário
+                    const formData = {
+                        nome: document.getElementById('nome').value,
+                        documento: document.getElementById('documento').value,
+                        celular: document.getElementById('celular').value,
+                        email: document.getElementById('email').value,
+                        data: document.getElementById('data').value,
+                        nascimento: document.getElementById('nascimento').value,
+                        cep: document.getElementById('cep').value,
+                        endereco: document.getElementById('endereco').value,
+                        complemento: document.getElementById('complemento').value,
+                        bairro: document.getElementById('bairro').value,
+                        cidade: document.getElementById('cidade').value,
+                        estado: document.getElementById('estado').value,
+                        alcool: document.querySelector('input[name="alcool"]:checked')?.value || '',
+                        sono: document.querySelector('input[name="sono"]:checked')?.value || '',
+                        tratamento: document.querySelector('input[name="tratamento"]:checked')?.value || '',
+                        medicamento: document.querySelector('input[name="medicamento"]:checked')?.value || '',
+                        laser: document.querySelector('input[name="laser"]:checked')?.value || '',
+                        doenca: document.querySelector('input[name="doenca"]:checked')?.value || '',
+                        alergia: document.querySelector('input[name="alergia"]:checked')?.value || '',
+                        gestacao: document.querySelector('input[name="gestacao"]:checked')?.value || '',
+                        cirurgia: document.querySelector('input[name="cirurgia"]:checked')?.value || '',
+                        acido: document.querySelector('input[name="acido"]:checked')?.value || '',
+                        pele: document.querySelector('input[name="pele"]:checked')?.value || '',
+                        hipertensao: document.querySelector('input[name="hipertensao"]:checked')?.value || '',
+                        oncologico: document.querySelector('input[name="oncologico"]:checked')?.value || '',
+                        tatuagem: document.querySelector('input[name="tatuagem"]:checked')?.value || '',
+                        imagem: document.querySelector('input[name="imagem"]:checked')?.value || '',
+                        assinatura: signaturePad.toDataURL("image/png")
+                    };
 
-                try {
-                    // Envia o e-mail via EmailJS com as credenciais corretas
-                    await emailjs.send("service_fyzmxh9", "template_wgehft2", templateParams);
+                    // Adiciona o token do reCAPTCHA aos dados do formulário
+                    const templateParams = {
+                        ...formData,
+                        recaptcha_token: recaptchaToken,
+                        data: formData.data ? new Date(formData.data).toLocaleDateString('pt-BR') : '',
+                        nascimento: formData.nascimento ? new Date(formData.nascimento).toLocaleDateString('pt-BR') : '',
+                        data_envio: new Date().toLocaleDateString('pt-BR'),
+                        hora_envio: new Date().toLocaleTimeString('pt-BR')
+                    };
 
-                    showToast('Ficha enviada com sucesso!', 'success');
-                    form.reset();
-                    signaturePad.clear();
-                    signaturePadContainer.classList.remove('has-signature');
+                    try {
+                        // Envia o e-mail via EmailJS
+                        await emailjs.send("service_fyzmxh9", "template_wgehft2", templateParams);
 
-                } catch (error) {
-                    console.error('Erro ao enviar o e-mail:', error);
-                    showToast('Ocorreu um erro ao enviar. Tente novamente.', 'error');
-                } finally {
-                    loadingIndicator.style.display = 'none';
-                    submitButton.disabled = false;
-                }
+                        showToast('Ficha enviada com sucesso!', 'success');
+                        form.reset();
+                        signaturePad.clear();
+                        signaturePadContainer.classList.remove('has-signature');
+
+                    } catch (error) {
+                        console.error('Erro ao enviar o e-mail:', error);
+                        showToast('Ocorreu um erro ao enviar. Tente novamente.', 'error');
+                    } finally {
+                        loadingIndicator.style.display = 'none';
+                        submitButton.disabled = false;
+                    }
+                });
             });
         });
     </script>

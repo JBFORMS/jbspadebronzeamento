@@ -1,18 +1,9 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<!DOCTYPE html>
-<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ficha de Anamnese - JB Spa de Bronze</title>
-
-    <meta property="og:title" content="Ficha de Anamnese - JB Spa de Bronze">
-    <meta property="og:description" content="Preencha sua ficha de anamnese antes do seu procedimento no JB Spa de Bronze.">
-    <meta property="og:image" content="https://jbforms.github.io/jbspadebronzeamento/assets/logo-jb.png">
-    <meta property="og:url" content="https://jbforms.github.io/jbspadebronzeamento/formulario-anamnese.html">
-    <meta property="og:type" content="website">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
@@ -492,6 +483,7 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script type="text/javascript">
         (function() {
             emailjs.init({
@@ -722,6 +714,8 @@
                         <input type="hidden" id="assinaturaData" name="assinaturaData" required>
                     </div>
                 </div>
+                
+                <div class="g-recaptcha" data-sitekey="6LeC68grAAAAAN5T_293hp-Dhofjpc42C3w9Efm_"></div>
 
                 <div class="loading" id="loadingIndicator">
                     <div class="loading-spinner"></div>
@@ -817,9 +811,15 @@
 
             form.addEventListener('submit', async function(event) {
                 event.preventDefault();
-                
+
                 if (signaturePad.isEmpty()) {
                     showToast('Por favor, assine a ficha.', 'error');
+                    return;
+                }
+                
+                const recaptchaResponse = grecaptcha.getResponse();
+                if (!recaptchaResponse) {
+                    showToast('Por favor, complete o reCAPTCHA.', 'error');
                     return;
                 }
 
@@ -888,6 +888,3 @@
     </script>
 </body>
 </html>
-
-
-

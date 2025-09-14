@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        /* Estilos CSS, o mesmo do código anterior, sem alterações */
+        /* [Seus estilos CSS] */
         :root {
             --primary: #D4AF37;
             --secondary: #C19A6B;
@@ -483,14 +483,6 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script type="text/javascript">
-        (function() {
-            emailjs.init({
-                publicKey: "b7nhKp4Fm0FUkDiIs" 
-            });
-        })();
-    </script>
 </head>
 <body>
     <div class="container" id="formContainer">
@@ -735,6 +727,7 @@
 
     <div class="toast" id="toast"></div>
 
+    <script src="https://www.google.com/recaptcha/api.js"></script>
     <script>
         // Formatação de Celular
         document.getElementById('celular').addEventListener('input', function(e) {

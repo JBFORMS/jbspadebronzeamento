@@ -483,7 +483,6 @@
     </style>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.0.0/dist/signature_pad.umd.min.js"></script>
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script type="text/javascript">
         (function() {
             emailjs.init({
@@ -714,8 +713,6 @@
                         <input type="hidden" id="assinaturaData" name="assinaturaData" required>
                     </div>
                 </div>
-                
-                <div class="g-recaptcha" data-sitekey="6Lf99cgrAAAAAJuvW8pyndSFMc8mAmmJnQF1hQlO"></div>
 
                 <div class="loading" id="loadingIndicator">
                     <div class="loading-spinner"></div>
@@ -811,15 +808,9 @@
 
             form.addEventListener('submit', async function(event) {
                 event.preventDefault();
-
+                
                 if (signaturePad.isEmpty()) {
                     showToast('Por favor, assine a ficha.', 'error');
-                    return;
-                }
-                
-                const recaptchaResponse = grecaptcha.getResponse();
-                if (!recaptchaResponse) {
-                    showToast('Por favor, complete o reCAPTCHA.', 'error');
                     return;
                 }
 
